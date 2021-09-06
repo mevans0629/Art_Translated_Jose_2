@@ -1,0 +1,22 @@
+dependencies: \
+  /Users/alberto/desarrollo/art/art-translated-mobile/ios/Runner/GeneratedPluginRegistrant.m \
+  /Users/alberto/desarrollo/art/art-translated-mobile/ios/Runner/GeneratedPluginRegistrant.h \
+  /Users/alberto/desarrollo/art/art-translated-mobile/ios/build/Debug-iphonesimulator/Flutter.framework/Modules/module.modulemap \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator14.5.sdk/usr/include/mach-o/compact_unwind_encoding.modulemap \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator14.5.sdk/usr/include/mach-o/dyld.modulemap \
+  /Users/alberto/desarrollo/art/art-translated-mobile/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterViewController.h \
+  /Users/alberto/desarrollo/art/art-translated-mobile/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterPluginAppLifeCycleDelegate.h \
+  /Users/alberto/desarrollo/art/art-translated-mobile/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterHeadlessDartRunner.h \
+  /Users/alberto/desarrollo/art/art-translated-mobile/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterEngineGroup.h \
+  /Users/alberto/desarrollo/art/art-translated-mobile/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterEngine.h \
+  /Users/alberto/desarrollo/art/art-translated-mobile/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterDartProject.h \
+  /Users/alberto/desarrollo/art/art-translated-mobile/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterCallbackCache.h \
+  /Users/alberto/desarrollo/art/art-translated-mobile/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterTexture.h \
+  /Users/alberto/desarrollo/art/art-translated-mobile/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterPlatformViews.h \
+  /Users/alberto/desarrollo/art/art-translated-mobile/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterCodecs.h \
+  /Users/alberto/desarrollo/art/art-translated-mobile/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterChannels.h \
+  /Users/alberto/desarrollo/art/art-translated-mobile/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterBinaryMessenger.h \
+  /Users/alberto/desarrollo/art/art-translated-mobile/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterPlugin.h \
+  /Users/alberto/desarrollo/art/art-translated-mobile/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterMacros.h \
+  /Users/alberto/desarrollo/art/art-translated-mobile/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterAppDelegate.h \
+  /Users/alberto/desarrollo/art/art-translated-mobile/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/Flutter.h
