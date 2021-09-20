@@ -61,11 +61,12 @@ class _TranslatorPageState extends State<TranslatorPage>
   @override
   Widget build(BuildContext context) {
     TextEditingController _textEditingController = TextEditingController();
+    Size _size = MediaQuery.of(context).size;
+
     MediaQueryData _mediaData = MediaQuery.of(context);
 
-    final width = _mediaData.size.width;
-    final height = _mediaData.size.height;
-    final viewBottom = _mediaData.viewInsets.bottom;
+    final width = _size.width;
+    final height = _size.height;
     final keyboardIsOn =
         (_mediaData.viewInsets.bottom / _mediaData.size.height) > 0.2;
     final wh = width + height;
@@ -74,7 +75,7 @@ class _TranslatorPageState extends State<TranslatorPage>
       _textEditingController.clear();
     }
 
-    Widget suffixIcon() {
+    Widget suffixIcon(double wh) {
       String? text = _textEditingController.text;
       if (text != null && text.isNotEmpty) {
         return Container(
@@ -84,7 +85,7 @@ class _TranslatorPageState extends State<TranslatorPage>
             child: RawMaterialButton(
               onPressed: _clearText,
               child:
-                  Icon(Icons.close, color: Styling.getInputTextStyle().color),
+                  Icon(Icons.close, color: Styling.getInputTextStyle(wh).color),
               shape: CircleBorder(),
             ),
           ),
@@ -98,16 +99,18 @@ class _TranslatorPageState extends State<TranslatorPage>
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: Widgets.appBar(title: Strings.titleApp),
+      appBar: Widgets.appBar(title: ""),
       backgroundColor: Styling.getPrimary(),
       body: ContainerLayout(
         color1: Styling.getPrimary(),
         color2: Styling.getSecondary(),
-        child: Column(
+        child: Stack(
           children: <Widget>[
-            Expanded(
+            Positioned(
+              top: _size.height * 0.04,
+              left: 0,
+              right: 0,
               child: Container(
-                padding: EdgeInsets.only(top: 46.0),
                 child: Text(Strings.titleApp,
                     style: TextStyle(
                       color: Styling.getSecondary().withOpacity(0.6),
@@ -118,128 +121,149 @@ class _TranslatorPageState extends State<TranslatorPage>
                     textAlign: TextAlign.center),
               ),
             ),
-            Expanded(
+            Positioned(
+              top: _size.height * 0.11,
+              left: 0,
+              right: 0,
               child: Container(
-                padding: EdgeInsets.only(top: 10.0),
-                child: Text("Find out what you're really looking at",
+                child: Text("Understand the",
                     style: TextStyle(
                       color: Colors.black,
                       fontFamily: 'Monserrat',
-                      fontSize: 25,
-                      fontWeight: FontWeight.w300,
-                    ),
-                    textAlign: TextAlign.center),
-              ),
-            ),
-            Flexible(
-              child: SizedBox(
-                height: 40,
-                width: 300,
-                child: Text("What is the Object?",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: 'Monserrat',
-                      fontSize: 25,
+                      fontSize: wh / 55,
                       fontWeight: FontWeight.w300,
                       letterSpacing: 0.16,
                     ),
                     textAlign: TextAlign.center),
               ),
             ),
-            Flexible(
-              child: SizedBox(
-                height: height / 12,
-                width: 300,
-                child: Container(
-                  height: height / 15,
-                  margin: EdgeInsets.all(4),
-                  padding: EdgeInsets.all(4),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Styling.getLightColor(),
-                    border: Border.all(
-                        color: Colors.black, // set border color
-                        width: 1.0), // set border width
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(10.0)), // set rounded corner radius
-                  ),
-                  child: Column(
-                    children: [
-                      TextField(
+            Positioned(
+              top: _size.height * 0.14,
+              left: 0,
+              right: 0,
+              child: Container(
+                child: Text("Language of Art",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'Monserrat',
+                      fontSize: wh / 55,
+                      fontWeight: FontWeight.w300,
+                      letterSpacing: 0.16,
+                    ),
+                    textAlign: TextAlign.center),
+              ),
+            ),
+            Positioned(
+              top: _size.height * 0.38,
+              left: 0,
+              right: 0,
+              child: Container(
+                child: Text("What is the Object?",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'Monserrat',
+                      fontSize: wh / 55,
+                      fontWeight: FontWeight.w300,
+                      letterSpacing: 0.16,
+                    ),
+                    textAlign: TextAlign.center),
+              ),
+            ),
+            Positioned(
+              top: _size.height * 0.42,
+              left: 0,
+              right: 0,
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 40),
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                height: 48,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(
+                      color: Colors.black, // set border color
+                      width: 1.0), // set border width
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                ),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: TextField(
                         autofocus: false,
                         onChanged: (newText) {
                           _textEditingController.text = newText;
                         },
-                        style: Styling.getInputTextStyle(),
+                        style: Styling.getInputTextStyle(wh),
                         decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: "E.g. Apple, spider, violin...",
-                            hintStyle: Styling.getInputTextStyle(),
-                            suffixIcon: suffixIcon()),
+                          enabledBorder: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          hintText: "E.g. Apple, spider, violin...",
+                          hintStyle: Styling.getInputTextStyle(wh),
+                          suffixIcon: suffixIcon(wh),
+                        ),
                       ),
-                    ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Positioned(
+              top: _size.height * 0.50,
+              left: 0,
+              right: 0,
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 80),
+                child: TextButton(
+                  onPressed: () {
+                    if (_textEditingController.text.isNotEmpty) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SearchResultsPage(
+                            textToTranslate: _textEditingController.text,
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                  style: TextButton.styleFrom(
+                    backgroundColor: Styling.getSecondary(),
+                    shape: const BeveledRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                  ),
+                  child: Text(
+                    'Translate',
+                    style: TextStyle(
+                      fontFamily: 'CrimsonPro',
+                      fontSize: wh / 45,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white,
+                      letterSpacing: 1.5,
+                    ),
                   ),
                 ),
               ),
             ),
-            Flexible(
-              child: SizedBox(
-                height: height / 10,
-                width: width,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        // if (_textEditingController.text != null &&
-                        //    _textEditingController.text.isNotEmpty) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SearchResultsPage(
-                                    textToTranslate: "Olympu")));
-                        // }
-                      },
-                      style: TextButton.styleFrom(
-                        backgroundColor: Styling.getSecondary(),
-                        shape: const BeveledRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(5))),
-                      ),
-                      child: Text(
-                        'Translate',
-                        style: TextStyle(
-                          fontFamily: 'CrimsonPro',
-                          fontSize: wh / 45,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white,
-                          letterSpacing: 1.5,
-                        ),
-                      ),
+            Positioned(
+              top: _size.height * 0.78,
+              left: 0,
+              right: 0,
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => AboutPage()),
+                  );
+                },
+                child: Text('About this tool',
+                    style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      fontFamily: 'OpenSans',
+                      fontSize: wh / 100,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.black,
                     ),
-                    // Text(_valueToShow),
-                    if (!keyboardIsOn)
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            // ignore: inference_failure_on_instance_creation
-                            MaterialPageRoute(
-                                builder: (BuildContext context) => AboutPage()),
-                          );
-                        },
-                        child: Text(
-                          'About this tool',
-                          style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            fontFamily: 'OpenSans',
-                            fontSize: wh / 100,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
+                    textAlign: TextAlign.center),
               ),
             ),
           ],

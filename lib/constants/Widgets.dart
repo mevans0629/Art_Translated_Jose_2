@@ -2,9 +2,9 @@ import 'package:art_translated/constants/Styling.dart';
 import 'package:flutter/material.dart';
 
 class Widgets {
-  static PreferredSizeWidget appBar({required String title}) {
+  static AppBar appBar({required String title}) {
     return AppBar(
-      elevation: 0.1,
+      elevation: 0,
       backgroundColor: Styling.getPrimary(),
       title: Text(title),
       actions: <Widget>[

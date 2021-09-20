@@ -7,6 +7,9 @@ class Styling {
 
   static final Color _iconLightColor = Colors.white;
   static final Color _iconDarkColor = Colors.black;
+  static final Color _textColor = Colors.black;
+
+  static final double defaultPadding = 20.0;
 
   static Color getPrimary() {
     return _primary;
@@ -34,12 +37,17 @@ class Styling {
     return _iconDarkColor;
   }
 
-  static ThemeData getThemeData() {
+  static ThemeData getThemeData(BuildContext context) {
     return new ThemeData(
       primaryColor: Styling.getPrimary(),
+      scaffoldBackgroundColor: Styling.getSecondary(),
       secondaryHeaderColor: Styling.getSecondary(),
       fontFamily: 'Montserrat',
       brightness: Brightness.dark,
+      textTheme: Theme.of(context).textTheme.apply(
+            bodyColor: Styling._textColor,
+          ),
+      visualDensity: VisualDensity.adaptivePlatformDensity,
     );
   }
 
@@ -68,12 +76,13 @@ class Styling {
         fontWeight: FontWeight.normal);
   }
 
-  static TextStyle getInputTextStyle() {
+  static TextStyle getInputTextStyle(double wh) {
     return TextStyle(
-        color: Colors.black,
-        fontSize: 16.0,
-        fontFamily: 'OpenSans',
-        fontWeight: FontWeight.w300);
+      color: Colors.black,
+      fontSize: wh / 60.0,
+      fontFamily: 'OpenSans',
+      fontWeight: FontWeight.w300,
+    );
   }
 
   static TextStyle getTitleTextStyle() {

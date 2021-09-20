@@ -69,9 +69,9 @@ class SearchResultListView extends StatelessWidget {
           return ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              itemCount: snapshot.data!.results!.length,
+              itemCount: snapshot.data!.symbols.length,
               itemBuilder: (context, index) {
-                return makeCard(snapshot.data!.results![index]);
+                return makeCard(snapshot.data!.symbols[index]);
               });
         } else
           return Center(child: CircularProgressIndicator());

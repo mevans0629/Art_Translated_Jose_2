@@ -13,7 +13,7 @@ class ArtTranslatedApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: Strings.titleApp,
-      theme: Styling.getThemeData(),
+      theme: Styling.getThemeData(context),
       home: TranslatorPage(title: Strings.titleApp),
     );
   }
