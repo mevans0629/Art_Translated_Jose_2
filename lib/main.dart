@@ -1,9 +1,15 @@
+import 'package:art_translated/screens/splash_screen.dart';
 import 'package:art_translated/constants/Strings.dart';
 import 'package:art_translated/constants/Styling.dart';
-import 'package:art_translated/screens/translator_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  /*
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
+    SystemUiOverlay.bottom, //This line is used for showing the bottom bar
+  ]);
+  */
   runApp(ArtTranslatedApp());
 }
 
@@ -14,7 +20,7 @@ class ArtTranslatedApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: Strings.titleApp,
       theme: Styling.getThemeData(context),
-      home: TranslatorPage(title: Strings.titleApp),
+      home: Splash(),
     );
   }
 }

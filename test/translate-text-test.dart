@@ -1,4 +1,5 @@
-import 'package:art_translated/components/translate_label.dart';
+import 'package:art_translated/components/action_label.dart';
+import 'package:art_translated/constants/Styling.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void testTranslateLabel() {
@@ -6,9 +7,9 @@ void testTranslateLabel() {
 
   testWidgets('Test translate text building', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(TranslateLabel(
-      label: "Enter Text",
-      onTextTouched: _onTextTouched,
-    ));
+    await tester.pumpWidget(ActionLabel(
+        text: "Enter Text",
+        onTap: _onTextTouched,
+        textStyle: Styling.getBodyTextStyle(100)));
   });
 }

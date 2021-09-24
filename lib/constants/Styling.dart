@@ -11,6 +11,9 @@ class Styling {
 
   static final double defaultPadding = 20.0;
 
+  static const double padding = 20;
+  static const double avatarRadius = 45;
+
   static Color getPrimary() {
     return _primary;
   }
@@ -26,7 +29,34 @@ class Styling {
   static TextStyle getTextHead6Color() {
     return TextStyle(
         color: _iconLightColor, fontSize: 54, fontWeight: FontWeight.bold);
-    ;
+  }
+
+  static TextStyle getLinkTextStyle(double wh) {
+    return TextStyle(
+      decoration: TextDecoration.underline,
+      fontFamily: 'OpenSans',
+      fontSize: wh / 80,
+      fontWeight: FontWeight.w300,
+      color: Colors.black,
+    );
+  }
+
+  static TextStyle getHead1Style(double wh) {
+    return TextStyle(
+      color: Colors.black,
+      fontFamily: 'Monserrat',
+      fontSize: wh / 60,
+      fontWeight: FontWeight.w300,
+    );
+  }
+
+  static TextStyle getBodyTextStyle(double wh) {
+    return TextStyle(
+      color: Colors.black,
+      fontFamily: 'Monserrat',
+      fontSize: wh / 80,
+      fontWeight: FontWeight.w300,
+    );
   }
 
   static Color getIconLightColor() {
@@ -79,14 +109,19 @@ class Styling {
   static TextStyle getInputTextStyle(double wh) {
     return TextStyle(
       color: Colors.black,
-      fontSize: wh / 60.0,
+      fontSize: wh / 75.0,
       fontFamily: 'OpenSans',
       fontWeight: FontWeight.w300,
     );
   }
 
-  static TextStyle getTitleTextStyle() {
-    return TextStyle(color: _iconLightColor, fontSize: 38.0);
+  static TextStyle getTitleTextStyle(Color color, double wh) {
+    return TextStyle(
+      color: color,
+      fontFamily: 'Monserrat',
+      fontSize: wh / 35,
+      fontWeight: FontWeight.w300,
+    );
   }
 
   static TextStyle getMainTextStyle(bool secondColor) {

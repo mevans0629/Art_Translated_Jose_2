@@ -12,6 +12,11 @@ class SymbolDetailPage extends StatefulWidget {
 class _SymbolDetailPageState extends State<SymbolDetailPage> {
   @override
   Widget build(BuildContext context) {
+    Size _size = MediaQuery.of(context).size;
+    final _width = _size.width;
+    final _height = _size.height;
+    final double _wh = _width + _height;
+
     final topContentText = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -23,7 +28,7 @@ class _SymbolDetailPageState extends State<SymbolDetailPage> {
         SizedBox(height: 10.0),
         Text(
           widget.symbol.name,
-          style: Styling.getTitleTextStyle(),
+          style: Styling.getTitleTextStyle(Colors.black87, _wh),
         ),
         SizedBox(height: 30.0),
         Row(
