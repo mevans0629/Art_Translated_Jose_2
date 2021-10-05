@@ -1,6 +1,7 @@
+import 'package:art_translated/components/buttons/howto_button.dart';
+import 'package:art_translated/components/buttons/nav_button.dart';
 import 'package:art_translated/components/container_layout.dart';
-import 'package:art_translated/components/custom_dialog.dart';
-import 'package:art_translated/components/toolbar.dart';
+import 'package:art_translated/components/input_search.dart';
 import 'package:art_translated/components/action_label.dart';
 import 'package:art_translated/constants/Styling.dart';
 import 'package:art_translated/screens/about_page.dart';
@@ -73,6 +74,10 @@ class _TranslatorPageState extends State<TranslatorPage>
     final _height = _size.height;
     final wh = _width + _height;
 
+    _onTextChanged(newText) {
+      _textEditingController.text = newText;
+    }
+
     void _clearText() {
       _textEditingController.clear();
     }
@@ -106,10 +111,18 @@ class _TranslatorPageState extends State<TranslatorPage>
         color1: Styling.getPrimary(),
         color2: Styling.getSecondary(),
         child: Stack(
-          children: <Widget>[
-            Toolbar(showMenu: true),
+          children: [
             Positioned(
-              top: 30,
+              top: -5,
+              left: 0,
+              right: 0,
+              child: NavButton(
+                  color: Colors.black87,
+                  alignment: Alignment.centerRight,
+                  iconData: Icons.menu),
+            ),
+            Positioned(
+              top: 38,
               left: 0,
               right: 0,
               child: Container(
@@ -120,7 +133,7 @@ class _TranslatorPageState extends State<TranslatorPage>
               ),
             ),
             Positioned(
-              top: _size.height * 0.15,
+              top: _size.height * 0.2,
               left: 0,
               right: 0,
               child: Container(
@@ -130,7 +143,7 @@ class _TranslatorPageState extends State<TranslatorPage>
               ),
             ),
             Positioned(
-              top: _size.height * 0.35,
+              top: _size.height * 0.4,
               left: 0,
               right: 0,
               child: Container(
@@ -145,35 +158,13 @@ class _TranslatorPageState extends State<TranslatorPage>
                         style: Styling.getHead1Style(wh),
                       ),
                     ),
-                    Container(
-                      width: 35,
-                      alignment: Alignment.centerLeft,
-                      child: OutlinedButton(
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return CustomDialogBox(
-                                color: Styling.getSecondary(),
-                                title: "How to use\nArtTranslated",
-                                descriptions:
-                                    "The more information you write or verbalize into the search box the more precise the results will be.\n\nYou can either ask about a specific object or person i.e.: apple, or provide more context to find a higher probability of the meaning i.e.: sex of person (man), object description (apple or round), location of the art work (church), context (christian religion), geography (Rome), number (2), format (sculpture)",
-                              );
-                            },
-                          );
-                        },
-                        child: Icon(
-                          Icons.info,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
+                    HowtoButton(color: Styling.getSecondary()),
                   ],
                 ),
               ),
             ),
             Positioned(
-              top: _size.height * 0.42,
+              top: _size.height * 0.47,
               left: 0,
               right: 0,
               child: Container(
@@ -187,31 +178,15 @@ class _TranslatorPageState extends State<TranslatorPage>
                       width: 1.0), // set border width
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Expanded(
-                      child: TextField(
-                        autofocus: false,
-                        onChanged: (newText) {
-                          _textEditingController.text = newText;
-                        },
-                        style: Styling.getInputTextStyle(wh),
-                        decoration: InputDecoration(
-                          enabledBorder: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                          hintText: "E.g. Apple, spider, violin...",
-                          hintStyle: Styling.getInputTextStyle(wh),
-                          suffixIcon: suffixIcon(wh),
-                        ),
-                      ),
-                    ),
-                  ],
+                child: InputSearch(
+                  hintText: "E.g. Apple, spider, violin...",
+                  onChanged: _onTextChanged,
+                  clearText: _clearText,
                 ),
               ),
             ),
             Positioned(
-              top: _size.height * 0.50,
+              top: _size.height * 0.55,
               left: 0,
               right: 0,
               child: Row(

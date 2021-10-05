@@ -36,14 +36,14 @@ class _ContainerLayoutState extends State<ContainerLayout> {
             color: this.widget.color1,
             child: Container(
               height: _h2,
-              width: _size.width * 0.98,
-              margin: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+              width: _size.width * 0.99,
+              margin: EdgeInsets.symmetric(vertical: 6, horizontal: 6),
               child: Container(
                 height: _h3,
-                width: _size.width * 0.98,
+                width: _size.width * 0.99,
                 child: this.widget.child,
                 decoration: BoxDecoration(
-                  border: Border.all(color: this.widget.color2, width: 5),
+                  border: Border.all(color: this.widget.color2, width: 6),
                 ),
               ),
               color: Colors.white,

@@ -5,14 +5,14 @@ import 'package:dio/dio.dart';
 class ApiManager {
   Future<Symbols> searchSymbols({required String query}) async {
     var symbolsModel;
-    if (query == null || query.isEmpty) {
+    if (query.isEmpty) {
       return symbolsModel;
     }
     var httpClient = Dio();
     try {
       Response response =
-          await httpClient.get(Strings.getSymbolsUrl(query: query));
-      if (response != null && response.statusCode == 200) {
+          await httpClient.get(Strings.getSymbolsSearchUrl(query: query));
+      if (response.statusCode == 200) {
         symbolsModel = Symbols.fromJson(response.data);
       } else {
         print('${response.statusCode} : ${response.data.toString()}');

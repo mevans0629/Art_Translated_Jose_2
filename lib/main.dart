@@ -2,14 +2,13 @@ import 'package:art_translated/screens/splash_screen.dart';
 import 'package:art_translated/constants/Strings.dart';
 import 'package:art_translated/constants/Styling.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
-  /*
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
     SystemUiOverlay.bottom, //This line is used for showing the bottom bar
   ]);
-  */
   runApp(ArtTranslatedApp());
 }
 

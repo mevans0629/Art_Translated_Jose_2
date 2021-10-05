@@ -9,19 +9,22 @@ class Symbols {
     required this.count,
     this.next,
     this.previous,
-    required this.symbols,
+    this.facets,
+    required this.results,
   });
 
   int count;
   String? next;
   dynamic? previous;
-  List<Symbol> symbols;
+  Facets? facets;
+  List<Symbol> results;
 
   factory Symbols.fromJson(Map<String, dynamic> json) => Symbols(
         count: json["count"],
         next: json["next"],
         previous: json["previous"],
-        symbols:
+        facets: Facets.fromJson(json["facets"]),
+        results:
             List<Symbol>.from(json["results"].map((x) => Symbol.fromJson(x))),
       );
 
@@ -29,8 +32,17 @@ class Symbols {
         "count": count,
         "next": next,
         "previous": previous,
-        "symbols": List<dynamic>.from(symbols.map((x) => x.toJson())),
+        "facets": facets!.toJson(),
+        "results": List<dynamic>.from(results.map((x) => x.toJson())),
       };
+}
+
+class Facets {
+  Facets();
+
+  factory Facets.fromJson(Map<String, dynamic> json) => Facets();
+
+  Map<String, dynamic> toJson() => {};
 }
 
 class Symbol {
@@ -38,45 +50,33 @@ class Symbol {
     required this.id,
     required this.name,
     required this.meaning,
-    required this.imageContextDescription,
+    required this.description,
+    required this.images,
     required this.probability,
-    required this.firstImage,
-    required this.createdAt,
-    this.updatedAt,
-    this.deleted,
   });
 
   int id;
   String name;
   String meaning;
-  String imageContextDescription;
+  String description;
+  List<String> images;
   int probability;
-  dynamic firstImage;
-  DateTime createdAt;
-  DateTime? updatedAt;
-  DateTime? deleted;
 
   factory Symbol.fromJson(Map<String, dynamic> json) => Symbol(
         id: json["id"],
         name: json["name"],
         meaning: json["meaning"],
-        imageContextDescription: json["image_context_description"],
+        description: json["description"],
+        images: List<String>.from(json["images"].map((x) => x)),
         probability: json["probability"],
-        firstImage: json["first_image"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-        deleted: json["deleted"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
         "meaning": meaning,
-        "image_context_description": imageContextDescription,
+        "description": description,
+        "images": List<dynamic>.from(images.map((x) => x)),
         "probability": probability,
-        "first_image": firstImage,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt!.toIso8601String(),
-        "deleted": deleted,
       };
 }

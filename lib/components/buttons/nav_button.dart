@@ -5,10 +5,10 @@ class NavButton extends StatefulWidget {
     Key? key,
     required this.color,
     required this.alignment,
-    required this.forBack,
+    required this.iconData,
   }) : super(key: key);
 
-  final bool forBack;
+  final IconData iconData;
   final Color color;
   final AlignmentGeometry alignment;
 
@@ -17,27 +17,13 @@ class NavButton extends StatefulWidget {
 }
 
 class _NavButtonState extends State<NavButton> {
-  Icon iconForClose(Color color) {
-    if (this.widget.forBack) {
-      return Icon(
-        Icons.arrow_back_outlined,
-        color: color,
-      );
-    } else {
-      return Icon(
-        Icons.close,
-        color: color,
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: this.widget.alignment,
       child: OutlinedButton(
         onPressed: () => Navigator.of(context).pop(),
-        child: iconForClose(this.widget.color),
+        child: Icon(this.widget.iconData, color: this.widget.color),
       ),
     );
   }

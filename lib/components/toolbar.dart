@@ -1,81 +1,75 @@
 import 'package:art_translated/components/buttons/nav_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
-class Toolbar extends StatefulWidget {
-  Toolbar({Key? key, required this.showMenu}) : super(key: key);
+class Toolbar extends StatelessWidget {
+  Toolbar(
+      {Key? key,
+      required this.showShadow,
+      required this.showGoBack,
+      this.title,
+      this.mid,
+      this.right})
+      : super(key: key);
 
-  final bool showMenu;
-
-  Color menuItemColor = Colors.black87;
-
-  @override
-  _ToolbarState createState() => _ToolbarState();
-}
-
-class _ToolbarState extends State<Toolbar> {
-  Widget menuButton(bool showMenu) {
-    if (showMenu) {
-      return Align(
-        alignment: Alignment.topRight,
-        child: OutlinedButton(
-          onPressed: () {},
-          child: Icon(
-            Icons.menu,
-            color: this.widget.menuItemColor,
-          ),
-        ),
-      );
-    } else {
-      return Container();
-    }
-  }
-
-  Widget backButton(bool showMenu) {
-    if (showMenu) {
-      return Container();
-    } else {
-      return NavButton(
-          color: this.widget.menuItemColor,
-          alignment: Alignment.topRight,
-          forBack: true);
-    }
-  }
+  String? title;
+  final bool showGoBack;
+  final bool showShadow;
+  Widget? mid;
+  Widget? right;
 
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-    final double _w = (_size.width * 0.92) / 2;
-
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: PreferredSize(
-        preferredSize: Size(double.infinity, _size.height * 0.1),
-        child: Positioned(
-          top: 10,
-          left: 0,
-          right: 0,
-          child: Container(
-            width: _w,
-            height: _size.height * 0.1,
-            child: Container(
-              color: Colors.white,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Column(
-                    children: [backButton(this.widget.showMenu)],
-                  ),
-                  Column(
-                    children: [menuButton(this.widget.showMenu)],
-                  ),
-                ],
-              ),
-            ),
+    Decoration? _showShadow() {
+      if (showShadow) {
+        return const BoxDecoration(
+          color: Colors.white,
+          borderRadius: const BorderRadius.only(
+            bottomLeft: const Radius.circular(10.0),
+            bottomRight: const Radius.circular(10.0),
           ),
+          boxShadow: <BoxShadow>[
+            const BoxShadow(
+                color: Colors.black12, spreadRadius: 10.0, blurRadius: 20.0)
+          ],
+        );
+      } else {
+        return null;
+      }
+    }
+
+    return SafeArea(
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(5.0, 5.0, 15.0, 5.0),
+        decoration: _showShadow(),
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: showGoBack
+                  ? NavButton(
+                      color: Colors.black87,
+                      alignment: Alignment.centerLeft,
+                      iconData: Icons.chevron_left)
+                  : Container(
+                      height: 40.0,
+                    ),
+            ),
+            Expanded(
+              child: mid != null
+                  ? Align(alignment: Alignment.center, child: mid)
+                  : Container(
+                      height: 40.0,
+                    ),
+            ),
+            Expanded(
+              child: right != null
+                  ? Align(alignment: Alignment.centerRight, child: right)
+                  : Container(
+                      height: 40.0,
+                    ),
+            ),
+          ],
         ),
       ),
-      body: Center(),
     );
   }
 }

@@ -41,12 +41,22 @@ class Styling {
     );
   }
 
+  static TextStyle getLinkDetailsTextStyle(double wh) {
+    return TextStyle(
+      decoration: TextDecoration.none,
+      fontFamily: 'OpenSans',
+      fontSize: wh / 100,
+      fontWeight: FontWeight.w600,
+      color: Colors.black,
+    );
+  }
+
   static TextStyle getHead1Style(double wh) {
     return TextStyle(
       color: Colors.black,
       fontFamily: 'Monserrat',
       fontSize: wh / 60,
-      fontWeight: FontWeight.w300,
+      fontWeight: FontWeight.w600,
     );
   }
 
@@ -54,7 +64,34 @@ class Styling {
     return TextStyle(
       color: Colors.black,
       fontFamily: 'Monserrat',
-      fontSize: wh / 80,
+      fontSize: wh / 75,
+      fontWeight: FontWeight.w300,
+    );
+  }
+
+  static Color getProbabilityColor(String value) {
+    if (value == "High")
+      return Colors.green;
+    else if (value == "Medium")
+      return Colors.yellow;
+    else
+      return Colors.red;
+  }
+
+  static TextStyle getProbabilityTextStyle(double wh, Color color) {
+    return TextStyle(
+      color: color,
+      fontFamily: 'Monserrat',
+      fontSize: wh / 135,
+      fontWeight: FontWeight.w400,
+    );
+  }
+
+  static TextStyle getDetailsTextStyle(double wh) {
+    return TextStyle(
+      color: Colors.black,
+      fontFamily: 'OpenSans',
+      fontSize: wh / 70,
       fontWeight: FontWeight.w300,
     );
   }

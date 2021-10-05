@@ -5,10 +5,12 @@ class ActionLabel extends StatefulWidget {
       {Key? key,
       required this.text,
       required this.onTap,
-      required this.textStyle})
+      required this.textStyle,
+      this.textAlign})
       : super(key: key);
 
   final TextStyle textStyle;
+  TextAlign? textAlign;
   final String text;
   Function onTap;
 
@@ -26,7 +28,9 @@ class _ActionLabelState extends State<ActionLabel> {
       child: Text(
         this.widget.text,
         style: this.widget.textStyle,
-        textAlign: TextAlign.center,
+        textAlign: this.widget.textAlign != null
+            ? this.widget.textAlign
+            : TextAlign.center,
       ),
     );
   }

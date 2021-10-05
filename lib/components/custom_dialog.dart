@@ -50,9 +50,10 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 NavButton(
-                    color: Colors.black87,
-                    alignment: Alignment.centerRight,
-                    forBack: false),
+                  color: Colors.black87,
+                  alignment: Alignment.centerRight,
+                  iconData: Icons.close,
+                ),
                 SizedBox(
                   height: 5,
                 ),
