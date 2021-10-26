@@ -57,6 +57,7 @@ class _SymbolDetailPageState extends State<SymbolDetailPage> {
           child: GestureDetector(
               child: ImageWrapper(
                 imageProvider: _image.image,
+                aspectRatio: 500,
                 backgroundDecoration: BoxDecoration(color: Colors.white),
                 minScale: PhotoViewComputedScale.contained * 0.9,
                 maxScale: PhotoViewComputedScale.covered * 2,
@@ -77,7 +78,7 @@ class _SymbolDetailPageState extends State<SymbolDetailPage> {
                   );
                 },
               ),
-              onDoubleTap: () {
+              onTap: () {
                 if (hasImage) {
                   Navigator.push(context, MaterialPageRoute(builder: (_) {
                     return DetailScreen(
@@ -103,7 +104,7 @@ class _SymbolDetailPageState extends State<SymbolDetailPage> {
 
     final bottomContent = Container(
       width: _width,
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 1),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Center(
         child: Column(
           children: <Widget>[
@@ -111,10 +112,10 @@ class _SymbolDetailPageState extends State<SymbolDetailPage> {
             Container(
               height: 100,
               child: GalleryImages(
-                images: widget.symbol.images,
+                symbolId: widget.symbol.id,
               ),
             ),
-            bottomDescriptionText,
+            // bottomDescriptionText,
           ],
         ),
       ),
@@ -140,7 +141,7 @@ class _SymbolDetailPageState extends State<SymbolDetailPage> {
                     ),
                     Container(
                       width: _width,
-                      padding: EdgeInsets.only(top: 5.0),
+                      padding: EdgeInsets.only(top: 2.0, bottom: 5.0),
                       child: Center(
                         child: Text(
                           widget.symbol.name,

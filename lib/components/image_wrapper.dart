@@ -13,6 +13,7 @@ class ImageWrapper extends StatelessWidget {
     this.filterQuality = FilterQuality.none,
     this.disableGestures,
     this.errorBuilder,
+    this.aspectRatio = 500,
   }) : super();
 
   final ImageProvider? imageProvider;
@@ -25,6 +26,7 @@ class ImageWrapper extends StatelessWidget {
   final FilterQuality filterQuality;
   final bool? disableGestures;
   final ImageErrorWidgetBuilder? errorBuilder;
+  final int aspectRatio;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class ImageWrapper extends StatelessWidget {
       // so that it takes up the most possible screen space
       // while adhering to the defined aspect ratio
       child: AspectRatio(
-        aspectRatio: _wh / 300,
+        aspectRatio: _wh / this.aspectRatio,
         // Puts a "mask" on the child, so that it will keep its original, unzoomed size
         // even while it's being zoomed in
         child: ClipRect(

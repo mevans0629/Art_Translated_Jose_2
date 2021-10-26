@@ -6,12 +6,12 @@ class InputSearch extends StatefulWidget {
     Key? key,
     required this.hintText,
     required this.onChanged,
-    required this.clearText,
+    required this.onSubmitted,
   }) : super(key: key);
 
   final String hintText;
   Function onChanged;
-  Function clearText;
+  Function onSubmitted;
 
   @override
   _InputSearchState createState() => _InputSearchState();
@@ -20,17 +20,23 @@ class InputSearch extends StatefulWidget {
 class _InputSearchState extends State<InputSearch> {
   @override
   Widget build(BuildContext context) {
+    final TextEditingController textEditingController = TextEditingController();
     Size _size = MediaQuery.of(context).size;
     final _width = _size.width;
     final _height = _size.height;
     final wh = _width + _height;
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    void clearText() {
+      textEditingController.clear();
+      widget.onChanged("");
+    }
+
+    return Stack(
+      alignment: const Alignment(1.0, 1.0),
       children: <Widget>[
-        Expanded(
-          child: TextField(
+        TextField(
             autofocus: false,
+            controller: textEditingController,
             onChanged: (newText) {
               this.widget.onChanged(newText);
             },
@@ -41,15 +47,16 @@ class _InputSearchState extends State<InputSearch> {
               hintText: this.widget.hintText,
               hintStyle: Styling.getInputTextStyle(wh),
             ),
-          ),
-        ),
+            onSubmitted: (value) {
+              this.widget.onSubmitted(value);
+            }),
         IconButton(
           icon: Icon(
             Icons.clear,
             color: Colors.black87,
           ),
           onPressed: () {
-            this.widget.clearText();
+            clearText();
           },
         ),
       ],

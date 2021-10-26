@@ -115,6 +115,10 @@ class Styling {
             bodyColor: Styling._textColor,
           ),
       visualDensity: VisualDensity.adaptivePlatformDensity,
+      pageTransitionsTheme: PageTransitionsTheme(builders: {
+        TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+        TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+      }),
     );
   }
 

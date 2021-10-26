@@ -1,4 +1,5 @@
 import 'package:art_translated/constants/Strings.dart';
+import 'package:art_translated/models/symbol_image.dart';
 import 'package:art_translated/models/symbols.dart';
 import 'package:dio/dio.dart';
 
@@ -22,8 +23,29 @@ class ApiManager {
       print("StackTrace $s");
       return symbolsModel;
     }
-    // _translateProvider.setIsTranslating(false);
 
     return symbolsModel;
+  }
+
+  Future<SymbolImages> getSymbolImages({required double symbolId}) async {
+    var symbolImagesModel;
+
+    var httpClient = Dio();
+    try {
+      String url = Strings.getSymbolImagesUrl(id: symbolId);
+      print("URL $url");
+      Response response = await httpClient.get(url);
+      if (response.statusCode == 200) {
+        symbolImagesModel = SymbolImages.fromJson(response.data);
+      } else {
+        print('${response.statusCode} : ${response.data.toString()}');
+      }
+    } catch (e, s) {
+      print("Exception $e");
+      print("StackTrace $s");
+      return symbolImagesModel;
+    }
+
+    return symbolImagesModel;
   }
 }

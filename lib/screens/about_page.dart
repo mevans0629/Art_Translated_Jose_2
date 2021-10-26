@@ -36,14 +36,13 @@ class _AboutPageState extends State<AboutPage> {
                     showGoBack: true,
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(
-                        vertical: height / 25, horizontal: width / 16),
+                    padding: EdgeInsets.symmetric(horizontal: width / 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
                           margin:
-                              EdgeInsets.only(top: wh / 240, bottom: wh / 30),
+                              EdgeInsets.only(top: wh / 290, bottom: wh / 30),
                           child: Center(
                             child: Text(
                               'About\nArtTranslate',

@@ -21,17 +21,20 @@ class _TranslatorPageState extends State<TranslatorPage>
     with SingleTickerProviderStateMixin {
   late FocusNode _textFocusNode;
   late AnimationController _controller;
+  String inputText = "";
 
   @override
   void initState() {
     super.initState();
     _textFocusNode = FocusNode();
+
     _controller = AnimationController(
       duration: const Duration(milliseconds: 150),
       vsync: this,
     )..addListener(() {
         setState(() {});
       });
+    inputText = "";
   }
 
   @override
@@ -39,6 +42,30 @@ class _TranslatorPageState extends State<TranslatorPage>
     _controller.dispose();
     _textFocusNode.dispose();
     super.dispose();
+  }
+
+  onTextChanged(newText) {
+    inputText = newText;
+  }
+
+  onSubmitted(value) {
+    print(value);
+    if (getInputText().isNotEmpty) {
+      String _inputText = getInputText();
+      onTextChanged("");
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SearchResultsPage(
+            textToTranslate: _inputText,
+          ),
+        ),
+      );
+    }
+  }
+
+  String getInputText() {
+    return inputText;
   }
 
   // Generate animations to enter the text to translate
@@ -68,41 +95,10 @@ class _TranslatorPageState extends State<TranslatorPage>
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _textEditingController = TextEditingController();
     Size _size = MediaQuery.of(context).size;
     final _width = _size.width;
     final _height = _size.height;
     final wh = _width + _height;
-
-    _onTextChanged(newText) {
-      _textEditingController.text = newText;
-    }
-
-    void _clearText() {
-      _textEditingController.clear();
-    }
-
-    Widget suffixIcon(double wh) {
-      String? text = _textEditingController.text;
-      if (text.isNotEmpty) {
-        return Container(
-          width: 20,
-          child: Align(
-            alignment: Alignment.topRight,
-            child: RawMaterialButton(
-              onPressed: _clearText,
-              child:
-                  Icon(Icons.close, color: Styling.getInputTextStyle(wh).color),
-              shape: CircleBorder(),
-            ),
-          ),
-        );
-      } else {
-        return Container(
-          width: 20,
-        );
-      }
-    }
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -180,8 +176,8 @@ class _TranslatorPageState extends State<TranslatorPage>
                 ),
                 child: InputSearch(
                   hintText: "E.g. Apple, spider, violin...",
-                  onChanged: _onTextChanged,
-                  clearText: _clearText,
+                  onChanged: onTextChanged,
+                  onSubmitted: onSubmitted,
                 ),
               ),
             ),
@@ -192,36 +188,38 @@ class _TranslatorPageState extends State<TranslatorPage>
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    width: 300,
-                    height: 60,
-                    alignment: Alignment.center,
-                    child: TextButton(
-                      onPressed: () {
-                        if (_textEditingController.text.isNotEmpty) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SearchResultsPage(
-                                textToTranslate: _textEditingController.text,
+                  GestureDetector(
+                    onTap: () {
+                      onSubmitted(getInputText());
+                    },
+                    child: Container(
+                      width: 130,
+                      height: 40,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Styling.getSecondary(),
+                          style: BorderStyle.solid,
+                          width: 1.0,
+                        ),
+                        color: Styling.getSecondary(),
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Center(
+                            child: Text(
+                              'Translate',
+                              style: TextStyle(
+                                fontFamily: 'Monserrat',
+                                fontSize: wh / 55,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white,
                               ),
                             ),
-                          );
-                        }
-                      },
-                      style: TextButton.styleFrom(
-                        backgroundColor: Styling.getSecondary(),
-                        shape: const BeveledRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(5))),
-                      ),
-                      child: Text(
-                        'Translate',
-                        style: TextStyle(
-                          fontFamily: 'Monserrat',
-                          fontSize: wh / 55,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white,
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),

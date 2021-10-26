@@ -55,7 +55,7 @@ class Symbol {
     required this.probability,
   });
 
-  int id;
+  double id;
   String name;
   String meaning;
   String description;
@@ -63,7 +63,7 @@ class Symbol {
   int probability;
 
   factory Symbol.fromJson(Map<String, dynamic> json) => Symbol(
-        id: json["id"],
+        id: json["id"].toDouble(),
         name: json["name"],
         meaning: json["meaning"],
         description: json["description"],

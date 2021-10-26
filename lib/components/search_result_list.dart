@@ -1,4 +1,5 @@
 import 'package:art_translated/components/action_label.dart';
+import 'package:art_translated/components/loader.dart';
 import 'package:art_translated/constants/Strings.dart';
 import 'package:art_translated/constants/Styling.dart';
 import 'package:art_translated/constants/app_utils.dart';
@@ -62,11 +63,7 @@ class SearchResultListView extends StatelessWidget {
               contentPadding:
                   EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
               leading: Container(
-                padding: EdgeInsets.only(right: 12.0, bottom: 10),
-                decoration: new BoxDecoration(
-                    border: new Border(
-                        right:
-                            new BorderSide(width: 1.0, color: Colors.black))),
+                padding: EdgeInsets.only(right: 10.0, bottom: 10),
                 child: _validateThumbnail(symbol.images),
               ),
               title: Row(
@@ -163,7 +160,7 @@ class SearchResultListView extends StatelessWidget {
               style: Styling.getDetailsTextStyle(wh),
             ));
         } else
-          return Center(child: CircularProgressIndicator());
+          return Loader();
       },
     );
   }

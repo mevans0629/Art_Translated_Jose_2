@@ -39,7 +39,7 @@ class Toolbar extends StatelessWidget {
 
     return SafeArea(
       child: Container(
-        padding: const EdgeInsets.fromLTRB(5.0, 5.0, 15.0, 5.0),
+        padding: const EdgeInsets.fromLTRB(2.0, 2.0, 10.0, 2.0),
         decoration: _showShadow(),
         child: Row(
           children: <Widget>[
@@ -50,21 +50,21 @@ class Toolbar extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       iconData: Icons.chevron_left)
                   : Container(
-                      height: 40.0,
+                      height: 30.0,
                     ),
             ),
             Expanded(
               child: mid != null
                   ? Align(alignment: Alignment.center, child: mid)
                   : Container(
-                      height: 40.0,
+                      height: 30.0,
                     ),
             ),
             Expanded(
               child: right != null
                   ? Align(alignment: Alignment.centerRight, child: right)
                   : Container(
-                      height: 40.0,
+                      height: 30.0,
                     ),
             ),
           ],

@@ -41,7 +41,7 @@ class AppUtils {
       );
 
   static Image notFoundImage({required double width}) => Image.asset(
-        "assets/images/file_notfound.png",
+        "assets/images/space.png",
         fit: BoxFit.contain,
         width: width,
       );

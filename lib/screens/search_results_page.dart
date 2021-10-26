@@ -1,6 +1,5 @@
 import 'package:art_translated/components/buttons/howto_button.dart';
 import 'package:art_translated/components/container_layout.dart';
-import 'package:art_translated/components/input_search.dart';
 import 'package:art_translated/components/search_result_list.dart';
 import 'package:art_translated/components/toolbar.dart';
 import 'package:art_translated/constants/Styling.dart';
