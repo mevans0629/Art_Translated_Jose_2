@@ -49,7 +49,6 @@ class _TranslatorPageState extends State<TranslatorPage>
   }
 
   onSubmitted(value) {
-    print(value);
     if (getInputText().isNotEmpty) {
       String _inputText = getInputText();
       onTextChanged("");
@@ -129,7 +128,7 @@ class _TranslatorPageState extends State<TranslatorPage>
               ),
             ),
             Positioned(
-              top: _size.height * 0.2,
+              top: _size.height * 0.16,
               left: 0,
               right: 0,
               child: Container(
@@ -139,7 +138,7 @@ class _TranslatorPageState extends State<TranslatorPage>
               ),
             ),
             Positioned(
-              top: _size.height * 0.4,
+              top: _size.height * 0.28,
               left: 0,
               right: 0,
               child: Container(
@@ -160,7 +159,7 @@ class _TranslatorPageState extends State<TranslatorPage>
               ),
             ),
             Positioned(
-              top: _size.height * 0.47,
+              top: _size.height * 0.35,
               left: 0,
               right: 0,
               child: Container(
@@ -182,7 +181,7 @@ class _TranslatorPageState extends State<TranslatorPage>
               ),
             ),
             Positioned(
-              top: _size.height * 0.55,
+              top: _size.height * 0.43,
               left: 0,
               right: 0,
               child: Row(

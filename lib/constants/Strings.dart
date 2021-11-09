@@ -26,4 +26,13 @@ class Strings {
       return baseUrl + path;
     }
   }
+
+  static String getSuggestsUrl({required String text}) {
+    String path = apiPrefix + "/symbols/suggest?text=" + text;
+    if (useHttps) {
+      return baseUrl + path;
+    } else {
+      return baseUrl + path;
+    }
+  }
 }

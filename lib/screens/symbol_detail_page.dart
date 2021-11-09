@@ -22,11 +22,11 @@ class _SymbolDetailPageState extends State<SymbolDetailPage> {
 
   @override
   initState() {
-    if (widget.symbol.images.isNotEmpty &&
-        widget.symbol.images.length == 2 &&
-        widget.symbol.images[0].isNotEmpty) {
+    if (widget.symbol.images != null &&
+        widget.symbol.images!.length == 2 &&
+        widget.symbol.images![0].isNotEmpty) {
       _image = Image.network(
-        widget.symbol.images[0],
+        widget.symbol.images![0],
         fit: BoxFit.contain,
         width: 400,
         errorBuilder: (context, error, stackTrace) {
@@ -98,7 +98,7 @@ class _SymbolDetailPageState extends State<SymbolDetailPage> {
     );
 
     final bottomDescriptionText = Text(
-      widget.symbol.description,
+      widget.symbol.description!,
       style: Styling.getDetailsTextStyle(_wh),
     );
 

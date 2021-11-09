@@ -55,7 +55,7 @@ class Styling {
     return TextStyle(
       color: Colors.black,
       fontFamily: 'Monserrat',
-      fontSize: wh / 60,
+      fontSize: wh / 70,
       fontWeight: FontWeight.w600,
     );
   }

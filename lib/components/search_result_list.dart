@@ -64,7 +64,7 @@ class SearchResultListView extends StatelessWidget {
                   EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
               leading: Container(
                 padding: EdgeInsets.only(right: 10.0, bottom: 10),
-                child: _validateThumbnail(symbol.images),
+                child: _validateThumbnail(symbol.images!),
               ),
               title: Row(
                 children: [
@@ -77,7 +77,7 @@ class SearchResultListView extends StatelessWidget {
                   ),
                   Expanded(
                     flex: 1,
-                    child: _probabilityText(symbol.probability),
+                    child: _probabilityText(symbol.probability!),
                   ),
                 ],
               ),
@@ -141,22 +141,22 @@ class SearchResultListView extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data!.results != null &&
-              snapshot.data!.results.length > 0) {
+              snapshot.data!.results!.length > 0) {
             return Expanded(
               flex: 1,
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
                 itemCount:
-                    snapshot.data != null ? snapshot.data!.results.length : 1,
+                    snapshot.data != null ? snapshot.data!.results!.length : 1,
                 itemBuilder: (context, index) {
-                  return makeCard(snapshot.data!.results[index]);
+                  return makeCard(snapshot.data!.results![index]);
                 },
               ),
             );
           } else
             return Center(
                 child: Text(
-              "No data found for: " + searchText,
+              "Sorry We Couldn’t Find Your Symbol " + searchText,
               style: Styling.getDetailsTextStyle(wh),
             ));
         } else
