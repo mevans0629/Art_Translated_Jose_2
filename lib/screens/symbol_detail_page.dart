@@ -1,13 +1,11 @@
 import 'package:art_translated/components/container_layout.dart';
 import 'package:art_translated/components/gallery_images.dart';
-import 'package:art_translated/components/image_detail.dart';
-import 'package:art_translated/components/image_wrapper.dart';
+import 'package:art_translated/components/image_top.dart';
 import 'package:art_translated/components/toolbar.dart';
 import 'package:art_translated/constants/Styling.dart';
 import 'package:art_translated/constants/app_utils.dart';
 import 'package:art_translated/models/symbols.dart';
 import 'package:flutter/material.dart';
-import 'package:photo_view/photo_view.dart';
 
 class SymbolDetailPage extends StatefulWidget {
   final Symbol symbol;
@@ -51,43 +49,11 @@ class _SymbolDetailPageState extends State<SymbolDetailPage> {
 
     final topContent = Stack(
       children: <Widget>[
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 1),
+        ImageTop(
+          symbol: widget.symbol,
+          image: _image,
           width: _width,
-          child: GestureDetector(
-              child: ImageWrapper(
-                imageProvider: _image.image,
-                aspectRatio: 500,
-                backgroundDecoration: BoxDecoration(color: Colors.white),
-                minScale: PhotoViewComputedScale.contained * 0.9,
-                maxScale: PhotoViewComputedScale.covered * 2,
-                disableGestures: true,
-                loadingBuilder: (context, event) {
-                  if (event == null) {
-                    return const Center(
-                      child: Text("Loading"),
-                    );
-                  }
-
-                  final value = event.cumulativeBytesLoaded /
-                      (event.expectedTotalBytes ?? event.cumulativeBytesLoaded);
-
-                  final percentage = (100 * value).floor();
-                  return Center(
-                    child: Text("$percentage%"),
-                  );
-                },
-              ),
-              onTap: () {
-                if (hasImage) {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) {
-                    return DetailScreen(
-                      tag: widget.symbol.name,
-                      imageProvider: _image.image,
-                    );
-                  }));
-                }
-              }),
+          hasImage: hasImage,
         ),
       ],
     );
@@ -138,6 +104,7 @@ class _SymbolDetailPageState extends State<SymbolDetailPage> {
                     Toolbar(
                       showShadow: false,
                       showGoBack: true,
+                      onClicked: () => Navigator.of(context).pop(),
                     ),
                     Container(
                       width: _width,

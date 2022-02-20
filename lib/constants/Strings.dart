@@ -8,6 +8,7 @@ class Strings {
   static final int maxLength = 50;
 
   static final double thumbnailWidth = 80;
+  static final double mainImageWidth = 296;
 
   static String getSymbolsSearchUrl({required String query}) {
     String path = "/search/?search=" + query + "&ordering=probability";

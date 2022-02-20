@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:art_translated/screens/translator_page.dart';
+import 'package:art_translated/screens/home_page.dart';
 import 'package:flutter/material.dart';
 
 class Splash extends StatefulWidget {
@@ -19,8 +19,8 @@ class VideoState extends State<Splash> with SingleTickerProviderStateMixin {
   }
 
   void navigationPage() {
-    Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => TranslatorPage(title: "")));
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => HomePage()));
   }
 
   @override

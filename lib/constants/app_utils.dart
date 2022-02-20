@@ -1,3 +1,4 @@
+import 'package:art_translated/constants/Strings.dart';
 import 'package:art_translated/constants/Styling.dart';
 import 'package:flutter/material.dart';
 
@@ -45,6 +46,25 @@ class AppUtils {
         fit: BoxFit.contain,
         width: width,
       );
+
+  static Image loadNetworkImageFill(String url, double height, double width) {
+    Image _image;
+    if (url.isNotEmpty) {
+      _image = Image.network(
+        url,
+        fit: BoxFit.fitWidth,
+        width: width,
+        height: height,
+        errorBuilder: (context, error, stackTrace) {
+          _image = notFoundImage(width: Strings.thumbnailWidth);
+          return _image;
+        },
+      );
+    } else {
+      _image = notFoundImage(width: Strings.thumbnailWidth);
+    }
+    return _image;
+  }
 
   static Image loadNetworkImage(String url, double width) {
     Image _image;

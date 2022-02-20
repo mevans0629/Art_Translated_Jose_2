@@ -6,6 +6,7 @@ class Toolbar extends StatelessWidget {
       {Key? key,
       required this.showShadow,
       required this.showGoBack,
+      required this.onClicked,
       this.title,
       this.mid,
       this.right})
@@ -14,6 +15,7 @@ class Toolbar extends StatelessWidget {
   String? title;
   final bool showGoBack;
   final bool showShadow;
+  final VoidCallback onClicked;
   Widget? mid;
   Widget? right;
 
@@ -43,12 +45,14 @@ class Toolbar extends StatelessWidget {
         decoration: _showShadow(),
         child: Row(
           children: <Widget>[
-            Expanded(
+            Container(
+              width: 40,
               child: showGoBack
                   ? NavButton(
                       color: Colors.black87,
                       alignment: Alignment.centerLeft,
-                      iconData: Icons.chevron_left)
+                      iconData: Icons.chevron_left,
+                      onClicked: this.onClicked)
                   : Container(
                       height: 30.0,
                     ),
@@ -60,7 +64,8 @@ class Toolbar extends StatelessWidget {
                       height: 30.0,
                     ),
             ),
-            Expanded(
+            Container(
+              width: 40,
               child: right != null
                   ? Align(alignment: Alignment.centerRight, child: right)
                   : Container(

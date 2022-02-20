@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:art_translated/components/loader.dart';
+import 'package:art_translated/components/buttons/howto_button.dart';
 import 'package:art_translated/constants/Styling.dart';
 import 'package:art_translated/models/suggests.dart';
 import 'package:art_translated/services/apimanager.dart';
@@ -11,11 +11,17 @@ class InputSearch extends StatefulWidget {
   InputSearch({
     Key? key,
     required this.hintText,
+    required this.showHowTo,
     required this.onChanged,
     required this.onSubmitted,
+    required this.width,
+    required this.height,
   }) : super(key: key);
 
   final String hintText;
+  final bool showHowTo;
+  final double width;
+  final double height;
   Function onChanged;
   Function onSubmitted;
 
@@ -65,104 +71,102 @@ class _InputSearchState extends State<InputSearch> {
     return new String.fromCharCodes(codeUnits);
   }
 
-  Widget autoCompleteWidget(final wh) {
+  Widget autoCompleteWidget() {
     return FutureBuilder(
       future: fetchSuggests(inputText),
       builder: (context, snapshot) {
-        return Padding(
-          padding: EdgeInsets.zero,
-          child: Column(
-            children: [
-              Autocomplete(
-                optionsBuilder: (TextEditingValue textEditingValue) {
-                  if (textEditingValue.text.isEmpty ||
-                      isLoading ||
-                      suggestions.length == 0) {
-                    return Iterable<String>.empty();
-                  } else {
-                    return suggestions.where((element) => element
-                        .toLowerCase()
-                        .contains(textEditingValue.text.toLowerCase()));
-                  }
-                },
-                optionsViewBuilder:
-                    (context, Function(String) onSelected, options) {
-                  return ListTileTheme(
-                    contentPadding: EdgeInsets.zero,
-                    textColor: Colors.black,
-                    tileColor: Colors.white,
-                    style: ListTileStyle.list,
-                    dense: true,
-                    child: Container(
-                      height: 52.0 * options.length,
-                      width: 120,
-                      child: ListView.builder(
-                          key: new Key(randomString(20)),
-                          itemExtent: 50.0,
-                          padding: EdgeInsets.zero,
-                          itemBuilder: (context, index) {
-                            final option = options.elementAt(index);
-                            return Container(
-                              width: 120,
-                              child: Card(
-                                margin: EdgeInsets.zero,
-                                child: ListTile(
-                                  dense: true,
-                                  contentPadding:
-                                      EdgeInsets.only(left: 0.0, right: 0.0),
-                                  title: SubstringHighlight(
-                                    text: option.toString(),
-                                    term: textEditingController.text,
-                                    textStyle: TextStyle(
-                                      fontSize: 15.0,
-                                      color: Colors.black,
-                                    ),
-                                    textStyleHighlight: TextStyle(
-                                      fontSize: 15.0,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w800,
-                                    ),
-                                  ),
-                                  onTap: () {
-                                    onSelected(option.toString());
-                                  },
-                                ),
-                              ),
-                            );
+        return Autocomplete(
+          optionsBuilder: (TextEditingValue textEditingValue) {
+            if (textEditingValue.text.isEmpty ||
+                isLoading ||
+                suggestions.length == 0) {
+              return Iterable<String>.empty();
+            } else {
+              return suggestions.where((element) => element
+                  .toLowerCase()
+                  .contains(textEditingValue.text.toLowerCase()));
+            }
+          },
+          optionsViewBuilder: (context, Function(String) onSelected, options) {
+            return ListTileTheme(
+              contentPadding: EdgeInsets.zero,
+              textColor: Colors.black,
+              tileColor: Colors.white,
+              style: ListTileStyle.list,
+              dense: true,
+              child: Container(
+                height: 52.0 * options.length,
+                width: 100,
+                child: ListView.builder(
+                  key: new Key(randomString(20)),
+                  itemExtent: 50.0,
+                  padding: EdgeInsets.zero,
+                  itemBuilder: (context, index) {
+                    final option = options.elementAt(index);
+                    return Container(
+                      width: 100,
+                      child: Card(
+                        margin: EdgeInsets.zero,
+                        child: ListTile(
+                          dense: true,
+                          contentPadding:
+                              EdgeInsets.only(left: 0.0, right: 0.0),
+                          title: SubstringHighlight(
+                            text: option.toString(),
+                            term: textEditingController.text,
+                            textStyle: TextStyle(
+                              fontSize: 12,
+                              color: Colors.black,
+                            ),
+                            textStyleHighlight: TextStyle(
+                              fontSize: 12.0,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                          onTap: () {
+                            onSelected(option.toString());
                           },
-                          itemCount: options.length),
-                    ),
-                  );
+                        ),
+                      ),
+                    );
+                  },
+                  itemCount: options.length,
+                ),
+              ),
+            );
+          },
+          onSelected: (value) {
+            this.widget.onChanged(value);
+            this.widget.onSubmitted(value);
+          },
+          fieldViewBuilder:
+              (context, controller, focusNode, onEditingComplete) {
+            this.textEditingController = controller;
+            return Container(
+              padding: EdgeInsets.symmetric(horizontal: 12),
+              width: widget.width,
+              height: widget.height,
+              child: TextField(
+                autofocus: false,
+                controller: controller,
+                focusNode: focusNode,
+                onChanged: (newText) {
+                  inputChanged(newText);
                 },
-                onSelected: (value) {
-                  this.widget.onChanged(value);
+                style: Styling.getInputTextStyle(),
+                decoration: InputDecoration(
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  hintText: this.widget.hintText,
+                  hintStyle: Styling.getInputTextStyle(),
+                ),
+                onSubmitted: (value) {
                   this.widget.onSubmitted(value);
                 },
-                fieldViewBuilder:
-                    (context, controller, focusNode, onEditingComplete) {
-                  this.textEditingController = controller;
-                  return TextField(
-                    autofocus: false,
-                    controller: controller,
-                    focusNode: focusNode,
-                    onChanged: (newText) {
-                      inputChanged(newText);
-                    },
-                    style: Styling.getInputTextStyle(wh),
-                    decoration: InputDecoration(
-                      enabledBorder: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                      hintText: this.widget.hintText,
-                      hintStyle: Styling.getInputTextStyle(wh),
-                    ),
-                    onSubmitted: (value) {
-                      this.widget.onSubmitted(value);
-                    },
-                  );
-                },
               ),
-            ],
-          ),
+            );
+          },
         );
       },
     );
@@ -171,30 +175,23 @@ class _InputSearchState extends State<InputSearch> {
   @override
   Widget build(BuildContext context) {
     final TextEditingController textEditingController = TextEditingController();
-    Size _size = MediaQuery.of(context).size;
-    final _width = _size.width;
-    final _height = _size.height;
-    final wh = _width + _height;
 
-    void clearText() {
-      textEditingController.clear();
-      widget.onChanged("");
-    }
-
-    return Stack(
-      alignment: const Alignment(1.0, 1.0),
-      children: <Widget>[
-        autoCompleteWidget(wh),
-        IconButton(
-          icon: Icon(
-            Icons.clear,
-            color: Colors.black87,
+    return PhysicalModel(
+      elevation: 8,
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(20),
+      child: Stack(
+        children: [
+          autoCompleteWidget(),
+          Positioned(
+            left: 180,
+            top: 2,
+            child: this.widget.showHowTo
+                ? HowtoButton(color: Styling.getPrimary())
+                : Container(height: 30.0),
           ),
-          onPressed: () {
-            clearText();
-          },
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

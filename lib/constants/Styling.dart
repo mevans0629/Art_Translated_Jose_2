@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Styling {
-  static final Color _primary = Color(0xFFF3A488); // #F3A488
+  static final Color _primary = Color(0xFF055C6E); // #055C6E
   static final Color _lightColor = Color.fromRGBO(229, 229, 229, 1);
-  static final Color _secondary = Color(0xFF055C6E); // #055C6E;
+  static final Color _secondary = Colors.white; // #055C6E;
 
   static final Color _iconLightColor = Colors.white;
   static final Color _iconDarkColor = Colors.black;
@@ -105,12 +105,13 @@ class Styling {
   }
 
   static ThemeData getThemeData(BuildContext context) {
-    return new ThemeData(
+    return ThemeData(
       primaryColor: Styling.getPrimary(),
       scaffoldBackgroundColor: Styling.getSecondary(),
       secondaryHeaderColor: Styling.getSecondary(),
       fontFamily: 'Montserrat',
       brightness: Brightness.dark,
+      dividerColor: Colors.grey,
       textTheme: Theme.of(context).textTheme.apply(
             bodyColor: Styling._textColor,
           ),
@@ -147,10 +148,10 @@ class Styling {
         fontWeight: FontWeight.normal);
   }
 
-  static TextStyle getInputTextStyle(double wh) {
+  static TextStyle getInputTextStyle() {
     return TextStyle(
       color: Colors.black,
-      fontSize: wh / 75.0,
+      fontSize: 12,
       fontFamily: 'OpenSans',
       fontWeight: FontWeight.w300,
     );

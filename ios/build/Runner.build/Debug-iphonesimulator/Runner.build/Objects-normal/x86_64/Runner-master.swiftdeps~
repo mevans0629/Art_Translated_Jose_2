@@ -1,5 +1,0 @@
-version: "Apple Swift version 5.4.2 (swiftlang-1205.0.28.2 clang-1205.0.19.57)"
-options: "072a9be543aa634f93085897901fc4d9"
-build_time: [1630293530, 368206000]
-inputs:
-  "/Users/alberto/desarrollo/art/art-translated-mobile/ios/Runner/AppDelegate.swift": [1625178393, 0]
