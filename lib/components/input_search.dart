@@ -71,7 +71,7 @@ class _InputSearchState extends State<InputSearch> {
     return new String.fromCharCodes(codeUnits);
   }
 
-  Widget autoCompleteWidget() {
+  Widget autoCompleteWidget(double size) {
     return FutureBuilder(
       future: fetchSuggests(inputText),
       builder: (context, snapshot) {
@@ -110,17 +110,19 @@ class _InputSearchState extends State<InputSearch> {
                         child: ListTile(
                           dense: true,
                           contentPadding:
-                              EdgeInsets.only(left: 0.0, right: 0.0),
+                              EdgeInsets.only(left: 12.0, right: 0.0),
                           title: SubstringHighlight(
                             text: option.toString(),
                             term: textEditingController.text,
                             textStyle: TextStyle(
-                              fontSize: 12,
+                              fontSize: Styling.getFontSize(12.0, size),
+                              fontFamily: 'OpenSans',
                               color: Colors.black,
                             ),
                             textStyleHighlight: TextStyle(
-                              fontSize: 12.0,
+                              fontSize: Styling.getFontSize(12.0, size),
                               color: Colors.black,
+                              fontFamily: 'OpenSans',
                               fontWeight: FontWeight.w800,
                             ),
                           ),
@@ -154,12 +156,22 @@ class _InputSearchState extends State<InputSearch> {
                 onChanged: (newText) {
                   inputChanged(newText);
                 },
-                style: Styling.getInputTextStyle(),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: Styling.getFontSize(12.0, size),
+                  fontFamily: 'OpenSans',
+                  fontWeight: FontWeight.w300,
+                ),
                 decoration: InputDecoration(
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
                   hintText: this.widget.hintText,
-                  hintStyle: Styling.getInputTextStyle(),
+                  hintStyle: TextStyle(
+                    color: Colors.black,
+                    fontSize: Styling.getFontSize(12.0, size),
+                    fontFamily: 'OpenSans',
+                    fontWeight: FontWeight.w300,
+                  ),
                 ),
                 onSubmitted: (value) {
                   this.widget.onSubmitted(value);
@@ -174,17 +186,28 @@ class _InputSearchState extends State<InputSearch> {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController textEditingController = TextEditingController();
+    final Size size = MediaQuery.of(context).size;
+    final width = size.width;
+    final height = size.height;
 
+    final int deviceSize = Styling.getDeviceSize(height);
+    double leftPosition = 210; // Small
+    if (deviceSize == 1) {
+      // Medium
+      leftPosition = 230;
+    } else if (deviceSize == 2) {
+      // Largest
+      leftPosition = 253;
+    }
     return PhysicalModel(
       elevation: 8,
       color: Colors.white,
       borderRadius: BorderRadius.circular(20),
       child: Stack(
         children: [
-          autoCompleteWidget(),
+          autoCompleteWidget(height),
           Positioned(
-            left: 180,
+            left: leftPosition,
             top: 2,
             child: this.widget.showHowTo
                 ? HowtoButton(color: Styling.getPrimary())

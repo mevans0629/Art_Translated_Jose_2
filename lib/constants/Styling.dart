@@ -177,4 +177,30 @@ class Styling {
         fontSize: 38.0,
         fontWeight: FontWeight.bold);
   }
+
+  static double calculatePercentage(double size, double percentage) {
+    if (percentage > 0.0) {
+      return (size * percentage) / 100;
+    } else {
+      return 0.0;
+    }
+  }
+
+  static double getFontSize(double init, double size) {
+    int factor = getDeviceSize(size);
+    if (factor > 0) {
+      return init + factor;
+    }
+    return init;
+  }
+
+  static int getDeviceSize(double size) {
+    if (size < 820) {
+      return 0;
+    } else if (size < 850) {
+      return 1;
+    } else {
+      return 2;
+    }
+  }
 }

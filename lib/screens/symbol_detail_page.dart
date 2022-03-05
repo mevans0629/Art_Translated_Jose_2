@@ -53,6 +53,8 @@ class _SymbolDetailPageState extends State<SymbolDetailPage> {
           symbol: widget.symbol,
           image: _image,
           width: _width,
+          height: 142,
+          aspectRatio: 500,
           hasImage: hasImage,
         ),
       ],

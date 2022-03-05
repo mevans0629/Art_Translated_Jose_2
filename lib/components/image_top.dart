@@ -8,6 +8,8 @@ class ImageTop extends StatefulWidget {
   final Symbol symbol;
   final Image image;
   final double width;
+  final double height;
+  final int aspectRatio;
   final bool hasImage;
 
   const ImageTop({
@@ -15,6 +17,8 @@ class ImageTop extends StatefulWidget {
     required this.symbol,
     required this.hasImage,
     required this.width,
+    required this.height,
+    required this.aspectRatio,
     required this.image,
   });
 
@@ -28,10 +32,11 @@ class _ImageTopState extends State<ImageTop> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 1),
       width: widget.width,
+      height: widget.height,
       child: GestureDetector(
           child: ImageWrapper(
             imageProvider: widget.image.image,
-            aspectRatio: 500,
+            aspectRatio: widget.aspectRatio,
             backgroundDecoration: BoxDecoration(color: Colors.white),
             minScale: PhotoViewComputedScale.contained * 0.9,
             maxScale: PhotoViewComputedScale.covered * 2,

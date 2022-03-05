@@ -21,6 +21,8 @@ class _AboutPageState extends State<AboutPage> {
     final height = _mediaData.size.height;
     final wh = width + height;
 
+    final double fontSize = Styling.getFontSize(14, height);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Styling.getSecondary(),
@@ -62,18 +64,18 @@ class _AboutPageState extends State<AboutPage> {
                             style: TextStyle(
                                 color: Colors.black,
                                 fontFamily: 'Monserrat',
-                                fontSize: 14,
+                                fontSize: fontSize,
                                 fontWeight: FontWeight.w300,
-                                height: 1.1),
+                                height: 1.2),
                           ),
                           Text(
                             'Unique from most books and other references, this app’s unique database of over 100,000 fields of information is structured to provide the meaning you are seeking to the specific symbol in a painting, sculpture, and architecture. With a symbol often having many possible  meanings, we provide results in order of probability.\n\nThe initial focus of this app is Western art. There are references to others but at this time they are not comprehensive (e.g.: Eastern culture).\n\nThe database is designed to apply to any popular symbol viewed.  The symbol could be an image you see or think of anywhere it might be encountered. For example: museum collections, parks, architecture, sculpture, art decor, movies, people’s home decor,tattoos and much more. A general guideline for the symbols is that they have a popular usage with some exceptions.\n\nPlease enjoy!',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontFamily: 'Monserrat',
-                                fontSize: 14,
+                                fontSize: fontSize,
                                 fontWeight: FontWeight.w300,
-                                height: 1.1),
+                                height: 1.2),
                           ),
                         ],
                       ),

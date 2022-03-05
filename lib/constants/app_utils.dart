@@ -52,7 +52,7 @@ class AppUtils {
     if (url.isNotEmpty) {
       _image = Image.network(
         url,
-        fit: BoxFit.fitWidth,
+        fit: BoxFit.fill,
         width: width,
         height: height,
         errorBuilder: (context, error, stackTrace) {

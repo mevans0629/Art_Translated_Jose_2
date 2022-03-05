@@ -41,7 +41,7 @@ class Toolbar extends StatelessWidget {
 
     return SafeArea(
       child: Container(
-        padding: const EdgeInsets.fromLTRB(2.0, 2.0, 10.0, 2.0),
+        padding: const EdgeInsets.fromLTRB(2.0, 0, 10.0, 0),
         decoration: _showShadow(),
         child: Row(
           children: <Widget>[

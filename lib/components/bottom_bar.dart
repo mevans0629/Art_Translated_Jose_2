@@ -16,9 +16,9 @@ class _BottomBarState extends State<BottomBar>
     with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-    final _width = _size.width;
-    final _height = _size.height;
+    Size size = MediaQuery.of(context).size;
+    final width = size.width;
+    final height = size.height;
 
     return Material(
       elevation: 10,
@@ -31,9 +31,13 @@ class _BottomBarState extends State<BottomBar>
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
+              SizedBox(width: Styling.calculatePercentage(width, 10)),
               buildTabItem(index: 0, icon: Icon(Icons.home)),
+              SizedBox(width: Styling.calculatePercentage(width, 22)),
               buildTabItem(index: 1, icon: Icon(Icons.question_mark)),
+              SizedBox(width: Styling.calculatePercentage(width, 22)),
               buildTabItem(index: 2, icon: Icon(Icons.account_circle)),
+              SizedBox(width: Styling.calculatePercentage(width, 10)),
             ],
           ),
         ),

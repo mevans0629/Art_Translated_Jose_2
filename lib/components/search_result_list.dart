@@ -62,23 +62,26 @@ class SearchResultListView extends StatelessWidget {
       return AppUtils.notFoundImage(width: Strings.thumbnailWidth);
     }
 
-    Image _validateMainItem(List<String> images, double width) {
-      if (images.isNotEmpty && images.length == 2 && images[1].isNotEmpty) {
-        return AppUtils.loadNetworkImageFill(images[1], 142, width);
+    Image _validateMainItem(List<String> images, double height, double width) {
+      if (images.isNotEmpty && images.length == 2 && images[0].isNotEmpty) {
+        return AppUtils.loadNetworkImageFill(images[0], height, width);
       }
       return AppUtils.notFoundImage(width: Strings.thumbnailWidth);
     }
 
     Column makeListTile(int index, Symbol symbol) {
       if (index == 0) {
+        final double _height = 242;
         return Column(
           children: <Widget>[
             Stack(
               children: <Widget>[
                 ImageTop(
                   symbol: symbol,
-                  image: _validateMainItem(symbol.images!, width),
+                  image: _validateMainItem(symbol.images!, _height, width),
                   width: width,
+                  height: _height,
+                  aspectRatio: 1200,
                   hasImage: true,
                 ),
               ],
@@ -99,7 +102,12 @@ class SearchResultListView extends StatelessWidget {
                     flex: 2,
                     child: Text(
                       symbol.name,
-                      style: Styling.getHead1Style(wh),
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'Monserrat',
+                        fontSize: Styling.getFontSize(22, height),
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ),
                   Expanded(
@@ -173,7 +181,12 @@ class SearchResultListView extends StatelessWidget {
                     flex: 2,
                     child: Text(
                       symbol.name,
-                      style: Styling.getHead1Style(wh),
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'Monserrat',
+                        fontSize: Styling.getFontSize(18, height),
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ),
                   Expanded(
@@ -260,22 +273,22 @@ class SearchResultListView extends StatelessWidget {
                     return Column(
                       children: [
                         makeCard(index, snapshot.data!.results![index]),
-                        SizedBox(height: 4),
+                        SizedBox(height: 6),
                         Row(
                           children: [
                             Text(
                               'This could also be...',
                               style: TextStyle(
-                                color: Colors.black,
+                                color: Colors.black45,
                                 fontFamily: 'Monserrat',
-                                fontSize: 22,
+                                fontSize: 18,
                                 fontWeight: FontWeight.w400,
                               ),
                               textAlign: TextAlign.left,
                             ),
                           ],
                         ),
-                        SizedBox(height: 4),
+                        SizedBox(height: 6),
                       ],
                     );
                   } else {

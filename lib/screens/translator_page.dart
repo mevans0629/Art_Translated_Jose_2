@@ -76,144 +76,154 @@ class _TranslatorPageState extends State<TranslatorPage>
 
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-    final _width = _size.width;
-    final _height = _size.height;
+    Size size = MediaQuery.of(context).size;
+    final height = size.height;
+    final width = size.width;
+
+    final double fontSize = Styling.getFontSize(12.0, height);
 
     if (phase == 0) {
-      return buildTranslator(_height);
+      return buildTranslator(context);
     } else if (phase == 1) {
-      return buildSearchResult(inputText);
+      return buildSearchResult(inputText, width, height);
     } else {
       return AboutPage(showGoBack: false, onClicked: () {});
     }
   }
 
-  Widget buildTranslator(double height) => ContainerLayout(
-        color1: Styling.getSecondary(),
-        color2: Styling.getSecondary(),
-        child: Stack(
-          children: [
-            ListView(
-              physics: BouncingScrollPhysics(),
-              children: [
-                const SizedBox(
-                  height: 80,
-                ),
-                Center(
-                  child: Stack(
-                    children: [
-                      Material(
-                        color: Colors.transparent,
-                        child: Ink.image(
-                          image: AssetImage(
-                            "assets/images/Art_Translated_Title.png",
-                          ),
-                          fit: BoxFit.contain,
-                          width: 275,
-                          height: 84,
+  Widget buildTranslator(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    final height = size.height;
+    final width = size.width;
+
+    final double fontSize = Styling.getFontSize(12.0, height);
+
+    return ContainerLayout(
+      color1: Styling.getSecondary(),
+      color2: Styling.getSecondary(),
+      child: Stack(
+        children: [
+          ListView(
+            physics: BouncingScrollPhysics(),
+            children: [
+              SizedBox(height: Styling.calculatePercentage(height, 15)),
+              Center(
+                child: Stack(
+                  children: [
+                    Material(
+                      color: Colors.transparent,
+                      child: Ink.image(
+                        image: AssetImage(
+                          "assets/images/Art_Translated_Title.png",
                         ),
+                        fit: BoxFit.contain,
+                        width: Styling.calculatePercentage(width, 86),
+                        height: Styling.calculatePercentage(height, 15),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  height: 58,
-                ),
-                Center(
-                  child: Stack(
-                    children: [
-                      Container(
-                        width: 231,
-                        height: 43.33,
-                        child: InputSearch(
-                          hintText: "What object are you looking at?",
-                          onChanged: onTextChanged,
-                          onSubmitted: onSubmitted,
-                          showHowTo: true,
-                          width: 231,
-                          height: 43.33,
-                        ),
+              ),
+              SizedBox(
+                height: Styling.calculatePercentage(height, 10),
+              ),
+              Center(
+                child: Stack(
+                  children: [
+                    Container(
+                      width: Styling.calculatePercentage(width, 72.19),
+                      height: 43.33,
+                      child: InputSearch(
+                        hintText: "What object are you looking at?",
+                        onChanged: onTextChanged,
+                        onSubmitted: onSubmitted,
+                        showHowTo: true,
+                        width: Styling.calculatePercentage(width, 72.19),
+                        height: Styling.calculatePercentage(height, 7.63),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  height: 14,
-                ),
-                Center(
-                  child: Stack(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              onSubmitted(getInputText());
-                            },
-                            child: Container(
-                              width: 86,
-                              height: 28,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Styling.getPrimary(),
-                                  style: BorderStyle.solid,
-                                  width: 1.0,
-                                ),
+              ),
+              SizedBox(
+                height: Styling.calculatePercentage(height, 2.46),
+              ),
+              Center(
+                child: Stack(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            onSubmitted(getInputText());
+                          },
+                          child: Container(
+                            width: Styling.calculatePercentage(width, 26.88),
+                            height: Styling.calculatePercentage(height, 4.93),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              border: Border.all(
                                 color: Styling.getPrimary(),
-                                borderRadius: BorderRadius.circular(30.0),
+                                style: BorderStyle.solid,
+                                width: 1.0,
                               ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Center(
-                                    child: Text(
-                                      'Translate',
-                                      style: TextStyle(
-                                        fontFamily: 'Monserrat',
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.white,
-                                      ),
+                              color: Styling.getPrimary(),
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Center(
+                                  child: Text(
+                                    'Translate',
+                                    style: TextStyle(
+                                      fontFamily: 'Monserrat',
+                                      fontSize: fontSize,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.white,
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 220,
-                ),
-                Center(
-                  child: Stack(
-                    children: [
-                      ActionLabel(
-                        text: 'About this tool',
-                        onTap: showAboutPage,
-                        textStyle: TextStyle(
-                          decoration: TextDecoration.underline,
-                          fontFamily: 'OpenSans',
-                          fontSize: 12,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.black,
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ],
-        ),
-      );
+              ),
+              SizedBox(
+                height: Styling.calculatePercentage(height, 30),
+              ),
+              Center(
+                child: Stack(
+                  children: [
+                    ActionLabel(
+                      text: 'About this tool',
+                      onTap: showAboutPage,
+                      textStyle: TextStyle(
+                        decoration: TextDecoration.underline,
+                        fontFamily: 'OpenSans',
+                        fontSize: fontSize,
+                        fontWeight: FontWeight.w300,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 
-  Widget buildSearchResult(String textToTranslate) => ContainerLayout(
+  Widget buildSearchResult(
+          String textToTranslate, double width, double height) =>
+      ContainerLayout(
         color1: Styling.getSecondary(),
         color2: Styling.getPrimary(),
         child: Container(
@@ -228,15 +238,15 @@ class _TranslatorPageState extends State<TranslatorPage>
                     showGoBack: true,
                     onClicked: goBack,
                     mid: Container(
-                      width: 231,
-                      height: 43.33,
+                      width: Styling.calculatePercentage(width, 72.19),
+                      height: Styling.calculatePercentage(height, 5),
                       child: InputSearch(
                         hintText: "Search...",
                         onChanged: onTextChanged,
                         onSubmitted: onSubmitted,
                         showHowTo: false,
-                        width: 231,
-                        height: 43.33,
+                        width: Styling.calculatePercentage(width, 72.19),
+                        height: Styling.calculatePercentage(height, 5),
                       ),
                     ),
                     right: HowtoButton(
@@ -248,6 +258,7 @@ class _TranslatorPageState extends State<TranslatorPage>
                     searchText: textToTranslate,
                     scrollController: widget.scrollController,
                   ),
+                  SizedBox(height: 80),
                 ],
               ),
             ],
