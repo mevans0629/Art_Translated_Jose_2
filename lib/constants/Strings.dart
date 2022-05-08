@@ -11,25 +11,24 @@ class Strings {
   static final double mainImageWidth = 296;
 
   static String getSymbolsSearchUrl({required String query}) {
-    String path = "/search/?search=" + query + "&ordering=probability";
-    if (useHttps) {
-      return baseUrl + path;
-    } else {
-      return baseUrl + path;
-    }
+    return getUrl(apiPrefix + "/symbols/search?query=" + query);
+    // + "&ordering=probability";
   }
 
   static String getSymbolImagesUrl({required double id}) {
-    String path = apiPrefix + "/symbols/" + (id).toStringAsFixed(0) + "/images";
-    if (useHttps) {
-      return baseUrl + path;
-    } else {
-      return baseUrl + path;
-    }
+    return getUrl(
+        apiPrefix + "/symbols/" + (id).toStringAsFixed(0) + "/images");
   }
 
   static String getSuggestsUrl({required String text}) {
-    String path = apiPrefix + "/symbols/suggest?text=" + text;
+    return getUrl(apiPrefix + "/symbols/suggest?text=" + text);
+  }
+
+  static String getAutoSuggestsUrl({required String query}) {
+    return getUrl(apiPrefix + "/symbols/suggest?query=" + query);
+  }
+
+  static String getUrl(String path) {
     if (useHttps) {
       return baseUrl + path;
     } else {

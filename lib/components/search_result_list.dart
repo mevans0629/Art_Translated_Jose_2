@@ -5,7 +5,8 @@ import 'package:art_translated/components/not_found_box.dart';
 import 'package:art_translated/constants/Strings.dart';
 import 'package:art_translated/constants/Styling.dart';
 import 'package:art_translated/constants/app_utils.dart';
-import 'package:art_translated/models/symbols.dart';
+import 'package:art_translated/models/datum.dart';
+import 'package:art_translated/models/response.dart';
 import 'package:art_translated/screens/symbol_detail_page.dart';
 import 'package:art_translated/services/apimanager.dart';
 import 'package:flutter/material.dart';
@@ -55,21 +56,21 @@ class SearchResultListView extends StatelessWidget {
       );
     }
 
-    Widget _validateThumbnail(List<String> images) {
-      if (images.isNotEmpty && images.length == 2 && images[1].isNotEmpty) {
-        return AppUtils.loadNetworkImage(images[1], Strings.thumbnailWidth);
+    Widget _validateThumbnail(String imageUrl) {
+      if (imageUrl.isNotEmpty) {
+        return AppUtils.loadNetworkImage(imageUrl, Strings.thumbnailWidth);
       }
       return AppUtils.notFoundImage(width: Strings.thumbnailWidth);
     }
 
-    Image _validateMainItem(List<String> images, double height, double width) {
-      if (images.isNotEmpty && images.length == 2 && images[0].isNotEmpty) {
-        return AppUtils.loadNetworkImageFill(images[0], height, width);
+    Image _validateMainItem(String imageUrl, double height, double width) {
+      if (imageUrl.isNotEmpty) {
+        return AppUtils.loadNetworkImageFill(imageUrl, height, width);
       }
       return AppUtils.notFoundImage(width: Strings.thumbnailWidth);
     }
 
-    Column makeListTile(int index, Symbol symbol) {
+    Column makeListTile(int index, Datum symbol) {
       if (index == 0) {
         final double _height = 242;
         return Column(
@@ -78,7 +79,8 @@ class SearchResultListView extends StatelessWidget {
               children: <Widget>[
                 ImageTop(
                   symbol: symbol,
-                  image: _validateMainItem(symbol.images!, _height, width),
+                  image: _validateMainItem(
+                      symbol.getFirstImageUrl(), _height, width),
                   width: width,
                   height: _height,
                   aspectRatio: 1200,
@@ -112,7 +114,7 @@ class SearchResultListView extends StatelessWidget {
                   ),
                   Expanded(
                     flex: 1,
-                    child: _probabilityText(symbol.probability!),
+                    child: _probabilityText(symbol.probability),
                   ),
                 ],
               ),
@@ -125,7 +127,7 @@ class SearchResultListView extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.bottomLeft,
                           child: Text(
-                            _validateMeaning(symbol.meaning),
+                            _validateMeaning(symbol.meaning!),
                             style: Styling.getDetailsTextStyle(wh),
                             textAlign: TextAlign.left,
                           ),
@@ -166,7 +168,7 @@ class SearchResultListView extends StatelessWidget {
                   EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
               leading: Container(
                 padding: EdgeInsets.only(right: 10.0, bottom: 10),
-                child: _validateThumbnail(symbol.images!),
+                child: _validateThumbnail(symbol.getFirstThumbUrl()),
               ),
               onTap: () {
                 Navigator.push(
@@ -191,7 +193,7 @@ class SearchResultListView extends StatelessWidget {
                   ),
                   Expanded(
                     flex: 1,
-                    child: _probabilityText(symbol.probability!),
+                    child: _probabilityText(symbol.probability),
                   ),
                 ],
               ),
@@ -204,7 +206,7 @@ class SearchResultListView extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.bottomLeft,
                           child: Text(
-                            _validateMeaning(symbol.meaning),
+                            _validateMeaning(symbol.meaning!),
                             style: Styling.getDetailsTextStyle(wh),
                             textAlign: TextAlign.left,
                           ),
@@ -240,7 +242,7 @@ class SearchResultListView extends StatelessWidget {
       }
     }
 
-    Card makeCard(int index, Symbol symbol) => Card(
+    Card makeCard(int index, Datum symbol) => Card(
           elevation: 3,
           margin: new EdgeInsets.symmetric(vertical: 3.0, horizontal: 6.0),
           child: Container(
@@ -255,24 +257,28 @@ class SearchResultListView extends StatelessWidget {
           ),
         );
 
-    return FutureBuilder<Symbols>(
+    return FutureBuilder<SymbolRes>(
       future: ApiManager().searchSymbols(query: searchText),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.data!.results != null &&
-              snapshot.data!.results!.length > 0) {
+          var records = [];
+          int recordsCount = 0;
+          if (snapshot.data! != null) {
+            records = snapshot.data!.data;
+            recordsCount = records.length;
+          }
+          if (recordsCount > 0) {
             return Expanded(
               flex: 1,
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
                 controller: this.scrollController,
-                itemCount:
-                    snapshot.data != null ? snapshot.data!.results!.length : 1,
+                itemCount: recordsCount == 0 ? 1 : recordsCount,
                 itemBuilder: (context, index) {
                   if (index == 0) {
                     return Column(
                       children: [
-                        makeCard(index, snapshot.data!.results![index]),
+                        makeCard(index, records[index]),
                         SizedBox(height: 6),
                         Row(
                           children: [
@@ -292,7 +298,7 @@ class SearchResultListView extends StatelessWidget {
                       ],
                     );
                   } else {
-                    return makeCard(index, snapshot.data!.results![index]);
+                    return makeCard(index, records[index]);
                   }
                 },
               ),

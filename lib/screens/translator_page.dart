@@ -125,7 +125,7 @@ class _TranslatorPageState extends State<TranslatorPage>
                 ),
               ),
               SizedBox(
-                height: Styling.calculatePercentage(height, 10),
+                height: Styling.calculatePercentage(height, 5),
               ),
               Center(
                 child: Stack(

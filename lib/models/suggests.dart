@@ -11,8 +11,8 @@ class Suggests {
 
   List<String>? data;
 
-  factory Suggests.fromJson(Map<String, dynamic> json) => Suggests(
-        data: List<String>.from(json["data"].map((x) => x)),
+  factory Suggests.fromJson(List<dynamic> json) => Suggests(
+        data: List<String>.from(json.map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {

@@ -1,7 +1,7 @@
 import 'package:art_translated/components/image_detail.dart';
 import 'package:art_translated/components/loader.dart';
 import 'package:art_translated/constants/app_utils.dart';
-import 'package:art_translated/models/symbol_image.dart';
+import 'package:art_translated/models/response.dart';
 import 'package:art_translated/services/apimanager.dart';
 import 'package:flutter/material.dart';
 
@@ -17,22 +17,26 @@ class GalleryImages extends StatefulWidget {
 class _GalleryImagesState extends State<GalleryImages> {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<SymbolImages>(
+    return FutureBuilder<SymbolImageRes>(
       future: ApiManager().getSymbolImages(symbolId: widget.symbolId),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.data!.results != null &&
-              snapshot.data!.results.length > 0) {
+          var records = [];
+          int recordsCount = 0;
+          if (snapshot.data! != null) {
+            records = snapshot.data!.data;
+            recordsCount = records.length;
+          }
+          if (records.length > 0) {
             return Container(
               padding: const EdgeInsets.symmetric(vertical: 20.0),
               height: 80.0,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount:
-                    snapshot.data != null ? snapshot.data!.results.length : 1,
+                itemCount: recordsCount == 0 ? 1 : recordsCount,
                 itemBuilder: (context, index) {
-                  Image _image = AppUtils.loadNetworkImage(
-                      snapshot.data!.results[index].url, 100);
+                  Image _image =
+                      AppUtils.loadNetworkImage(records[index].urlThumb, 100);
                   return GestureDetector(
                     child: _image,
                     onTap: () {

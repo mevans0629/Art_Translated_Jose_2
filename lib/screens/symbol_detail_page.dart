@@ -4,11 +4,11 @@ import 'package:art_translated/components/image_top.dart';
 import 'package:art_translated/components/toolbar.dart';
 import 'package:art_translated/constants/Styling.dart';
 import 'package:art_translated/constants/app_utils.dart';
-import 'package:art_translated/models/symbols.dart';
+import 'package:art_translated/models/datum.dart';
 import 'package:flutter/material.dart';
 
 class SymbolDetailPage extends StatefulWidget {
-  final Symbol symbol;
+  final Datum symbol;
   SymbolDetailPage({Key? key, required this.symbol}) : super(key: key);
   @override
   _SymbolDetailPageState createState() => _SymbolDetailPageState();
@@ -20,11 +20,9 @@ class _SymbolDetailPageState extends State<SymbolDetailPage> {
 
   @override
   initState() {
-    if (widget.symbol.images != null &&
-        widget.symbol.images!.length == 2 &&
-        widget.symbol.images![0].isNotEmpty) {
+    if (widget.symbol.hasImages()) {
       _image = Image.network(
-        widget.symbol.images![0],
+        widget.symbol.images[0].urlImage,
         fit: BoxFit.contain,
         width: 400,
         errorBuilder: (context, error, stackTrace) {
@@ -61,12 +59,12 @@ class _SymbolDetailPageState extends State<SymbolDetailPage> {
     );
 
     final bottomContentText = Text(
-      widget.symbol.meaning,
+      widget.symbol.meaning!,
       style: Styling.getDetailsTextStyle(_wh),
     );
 
     final bottomDescriptionText = Text(
-      widget.symbol.description!,
+      widget.symbol.imageContextDescription!,
       style: Styling.getDetailsTextStyle(_wh),
     );
 

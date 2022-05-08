@@ -1,21 +1,22 @@
 import 'package:art_translated/constants/Strings.dart';
+import 'package:art_translated/models/response.dart';
 import 'package:art_translated/models/suggests.dart';
-import 'package:art_translated/models/symbol_image.dart';
-import 'package:art_translated/models/symbols.dart';
 import 'package:dio/dio.dart';
 
 class ApiManager {
-  Future<Symbols> searchSymbols({required String query}) async {
+  Future<SymbolRes> searchSymbols({required String query}) async {
     var symbolsModel;
     if (query.isEmpty) {
       return symbolsModel;
     }
     var httpClient = Dio();
     try {
+      // print(Strings.getSymbolsSearchUrl(query: query));
       Response response =
           await httpClient.get(Strings.getSymbolsSearchUrl(query: query));
       if (response.statusCode == 200) {
-        symbolsModel = Symbols.fromJson(response.data);
+        symbolsModel = SymbolRes.fromJson(response.data);
+        print(symbolsModel.message);
       } else {
         print('${response.statusCode} : ${response.data.toString()}');
       }
@@ -28,7 +29,7 @@ class ApiManager {
     return symbolsModel;
   }
 
-  Future<SymbolImages> getSymbolImages({required double symbolId}) async {
+  Future<SymbolImageRes> getSymbolImages({required double symbolId}) async {
     var symbolImagesModel;
 
     var httpClient = Dio();
@@ -37,7 +38,7 @@ class ApiManager {
       // print("URL $url");
       Response response = await httpClient.get(url);
       if (response.statusCode == 200) {
-        symbolImagesModel = SymbolImages.fromJson(response.data);
+        symbolImagesModel = SymbolImageRes.fromJson(response.data);
       } else {
         print('${response.statusCode} : ${response.data.toString()}');
       }
@@ -59,6 +60,29 @@ class ApiManager {
       // print("URL $url");
       Response response = await httpClient.get(url);
       if (response.statusCode == 200) {
+        suggests = Suggests.fromJson(response.data);
+      } else {
+        print('${response.statusCode} : ${response.data.toString()}');
+      }
+    } catch (e, s) {
+      print("Exception $e");
+      print("StackTrace $s");
+      return suggests;
+    }
+
+    return suggests;
+  }
+
+  Future<Suggests> getAutoSuggests({required String inputText}) async {
+    var suggests;
+
+    var httpClient = Dio();
+    try {
+      String url = Strings.getAutoSuggestsUrl(query: inputText);
+      // print("URL $url");
+      Response response = await httpClient.get(url);
+      if (response.statusCode == 200) {
+        print(response.data);
         suggests = Suggests.fromJson(response.data);
       } else {
         print('${response.statusCode} : ${response.data.toString()}');

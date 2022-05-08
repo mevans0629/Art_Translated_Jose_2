@@ -34,7 +34,7 @@ class _InputSearchState extends State<InputSearch> {
   String inputText = "";
   List<String> suggestions = [];
   late TextEditingController textEditingController;
-  final int minLength = 1;
+  final int minLength = 3;
 
   Future fetchSuggests(String inputText) async {
     if (inputText.isNotEmpty && inputText.length > minLength) {
@@ -44,7 +44,7 @@ class _InputSearchState extends State<InputSearch> {
       });
 
       Suggests suggestionsData =
-          await ApiManager().getSuggests(inputText: inputText);
+          await ApiManager().getAutoSuggests(inputText: inputText);
 
       setState(() {
         isLoading = false;

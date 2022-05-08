@@ -1,11 +1,11 @@
 import 'package:art_translated/components/image_detail.dart';
 import 'package:art_translated/components/image_wrapper.dart';
-import 'package:art_translated/models/symbols.dart';
+import 'package:art_translated/models/datum.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 
 class ImageTop extends StatefulWidget {
-  final Symbol symbol;
+  final Datum symbol;
   final Image image;
   final double width;
   final double height;
