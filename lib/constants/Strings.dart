@@ -30,9 +30,9 @@ class Strings {
 
   static String getUrl(String path) {
     if (useHttps) {
-      return baseUrl + path;
+      return Uri.encodeFull(baseUrl + path);
     } else {
-      return baseUrl + path;
+      return Uri.encodeFull(baseUrl + path);
     }
   }
 }

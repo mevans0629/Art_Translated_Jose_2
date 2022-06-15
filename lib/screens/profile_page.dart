@@ -4,6 +4,7 @@ import 'package:art_translated/components/profile/profile_image.dart';
 import 'package:art_translated/constants/Styling.dart';
 import 'package:art_translated/models/user.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key? key}) : super(key: key);
@@ -13,6 +14,22 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  String _version = "";
+  String _buildNumber = "";
+  bool _hasVersion = false;
+
+  @override
+  void initState() {
+    super.initState();
+    PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
+      setState(() {
+        _hasVersion = true;
+        _version = packageInfo.version;
+        _buildNumber = packageInfo.buildNumber;
+      });
+    });
+  }
+
   final User _user = new User(
       imagePath: "assets/images/avatar_icon.jpeg",
       name: "Mark Evans",
@@ -27,6 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
     final _width = _size.width;
     final _height = _size.height;
     final wh = _width + _height;
+    final double fontSize = Styling.getFontSize(12.0, _height);
 
     return ContainerLayout(
       color1: Styling.getSecondary(),
@@ -54,6 +72,26 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 48,
                 ),
                 buildAbout(_user),
+                const SizedBox(
+                  height: 248,
+                ),
+                Center(
+                  child: Stack(
+                    children: [
+                      _hasVersion
+                          ? Text(
+                              'version ' + _version + ' (' + _buildNumber + ')',
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontFamily: 'Monserrat',
+                                  fontSize: fontSize,
+                                  fontWeight: FontWeight.w300,
+                                  height: 1.2),
+                            )
+                          : Container()
+                    ],
+                  ),
+                ),
               ],
             ),
           ],

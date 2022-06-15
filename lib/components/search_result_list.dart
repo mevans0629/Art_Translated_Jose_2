@@ -264,7 +264,7 @@ class SearchResultListView extends StatelessWidget {
           var records = [];
           int recordsCount = 0;
           if (snapshot.data! != null) {
-            records = snapshot.data!.data;
+            records = snapshot.data!.data!;
             recordsCount = records.length;
           }
           if (recordsCount > 0) {

@@ -9,14 +9,16 @@ class ApiManager {
     if (query.isEmpty) {
       return symbolsModel;
     }
+    print(query.toLowerCase());
     var httpClient = Dio();
     try {
       // print(Strings.getSymbolsSearchUrl(query: query));
-      Response response =
-          await httpClient.get(Strings.getSymbolsSearchUrl(query: query));
+      Response response = await httpClient
+          .get(Strings.getSymbolsSearchUrl(query: query.toLowerCase()));
       if (response.statusCode == 200) {
+        print(response);
         symbolsModel = SymbolRes.fromJson(response.data);
-        print(symbolsModel.message);
+        // print(symbolsModel.message);
       } else {
         print('${response.statusCode} : ${response.data.toString()}');
       }
@@ -74,15 +76,15 @@ class ApiManager {
   }
 
   Future<Suggests> getAutoSuggests({required String inputText}) async {
-    var suggests;
+    Suggests suggests = new Suggests(data: []);
 
     var httpClient = Dio();
     try {
       String url = Strings.getAutoSuggestsUrl(query: inputText);
-      // print("URL $url");
+      print("URL $url");
       Response response = await httpClient.get(url);
       if (response.statusCode == 200) {
-        print(response.data);
+        // print(response.data);
         suggests = Suggests.fromJson(response.data);
       } else {
         print('${response.statusCode} : ${response.data.toString()}');

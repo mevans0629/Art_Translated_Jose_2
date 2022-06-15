@@ -9,18 +9,24 @@ class SymbolRes {
   SymbolRes({
     required this.success,
     required this.message,
-    required this.data,
+    this.data,
   });
 
   bool success;
   String message;
-  List<Datum> data;
+  List<Datum>? data;
 
-  factory SymbolRes.fromJson(Map<String, dynamic> json) => SymbolRes(
-        success: json["success"],
-        message: json["message"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-      );
+  factory SymbolRes.fromJson(Map<String, dynamic> json) {
+    List<Datum>? data = [];
+    if (json.containsKey("data"))
+      data = List<Datum>.from(json["data"].map((x) => Datum.fromJson(x)));
+
+    return SymbolRes(
+      success: json["success"],
+      message: json["message"],
+      data: data,
+    );
+  }
 }
 
 SymbolImageRes welcomeFromJson(String str) =>

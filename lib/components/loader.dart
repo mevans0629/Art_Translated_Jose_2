@@ -8,7 +8,7 @@ class Loader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: CircularProgressIndicator(
-        valueColor: new AlwaysStoppedAnimation<Color>(Styling.getSecondary()),
+        valueColor: new AlwaysStoppedAnimation<Color>(Styling.getPrimary()),
       ),
     );
   }

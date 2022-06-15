@@ -8,7 +8,7 @@ class Splash extends StatefulWidget {
 }
 
 class VideoState extends State<Splash> with SingleTickerProviderStateMixin {
-  var _visible = true;
+  bool _visible = true;
 
   late AnimationController animationController;
   late Animation<double> animation;

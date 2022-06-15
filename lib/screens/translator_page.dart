@@ -24,6 +24,7 @@ class _TranslatorPageState extends State<TranslatorPage>
   String inputText = "";
 
   int phase = 0;
+  bool inputTextSelected = false;
 
   @override
   void initState() {
@@ -47,15 +48,24 @@ class _TranslatorPageState extends State<TranslatorPage>
   }
 
   onTextChanged(newText) {
-    inputText = newText;
+    setState(() {
+      this.inputText = newText;
+    });
   }
 
   onSubmitted(value) {
-    if (getInputText().isNotEmpty) {
+    if (value.isNotEmpty) {
       setState(() {
+        this.inputText = value;
         this.phase = 1;
       });
     }
+  }
+
+  onTap() {
+    setState(() {
+      this.inputTextSelected = true;
+    });
   }
 
   String getInputText() {
@@ -71,6 +81,7 @@ class _TranslatorPageState extends State<TranslatorPage>
   void goBack() {
     setState(() {
       this.phase = 0;
+      this.inputTextSelected = false;
     });
   }
 
@@ -80,12 +91,10 @@ class _TranslatorPageState extends State<TranslatorPage>
     final height = size.height;
     final width = size.width;
 
-    final double fontSize = Styling.getFontSize(12.0, height);
-
     if (phase == 0) {
       return buildTranslator(context);
     } else if (phase == 1) {
-      return buildSearchResult(inputText, width, height);
+      return buildSearchResult(this.inputText, width, height);
     } else {
       return AboutPage(showGoBack: false, onClicked: () {});
     }
@@ -99,9 +108,12 @@ class _TranslatorPageState extends State<TranslatorPage>
     final double fontSize = Styling.getFontSize(12.0, height);
 
     return ContainerLayout(
-      color1: Styling.getSecondary(),
-      color2: Styling.getSecondary(),
-      child: Stack(
+        color1: Styling.getSecondary(),
+        color2: Styling.getSecondary(),
+        child: initialView(width, height, fontSize));
+  }
+
+  Widget initialView(double width, double height, double fontSize) => Stack(
         children: [
           ListView(
             physics: BouncingScrollPhysics(),
@@ -125,75 +137,61 @@ class _TranslatorPageState extends State<TranslatorPage>
                 ),
               ),
               SizedBox(
-                height: Styling.calculatePercentage(height, 5),
-              ),
-              Center(
-                child: Stack(
-                  children: [
-                    Container(
-                      width: Styling.calculatePercentage(width, 72.19),
-                      height: 43.33,
-                      child: InputSearch(
-                        hintText: "What object are you looking at?",
-                        onChanged: onTextChanged,
-                        onSubmitted: onSubmitted,
-                        showHowTo: true,
-                        width: Styling.calculatePercentage(width, 72.19),
-                        height: Styling.calculatePercentage(height, 7.63),
-                      ),
-                    ),
-                  ],
-                ),
+                height: Styling.calculatePercentage(height, 15),
               ),
               SizedBox(
                 height: Styling.calculatePercentage(height, 2.46),
               ),
-              Center(
-                child: Stack(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            onSubmitted(getInputText());
-                          },
-                          child: Container(
-                            width: Styling.calculatePercentage(width, 26.88),
-                            height: Styling.calculatePercentage(height, 4.93),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Styling.getPrimary(),
-                                style: BorderStyle.solid,
-                                width: 1.0,
-                              ),
-                              color: Styling.getPrimary(),
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Center(
-                                  child: Text(
-                                    'Translate',
-                                    style: TextStyle(
-                                      fontFamily: 'Monserrat',
-                                      fontSize: fontSize,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.white,
+              this.inputTextSelected
+                  ? Center()
+                  : Center(
+                      child: Stack(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  onSubmitted(getInputText());
+                                },
+                                child: Container(
+                                  width:
+                                      Styling.calculatePercentage(width, 26.88),
+                                  height:
+                                      Styling.calculatePercentage(height, 4.93),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Styling.getPrimary(),
+                                      style: BorderStyle.solid,
+                                      width: 1.0,
                                     ),
+                                    color: Styling.getPrimary(),
+                                    borderRadius: BorderRadius.circular(30.0),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Center(
+                                        child: Text(
+                                          'Translate',
+                                          style: TextStyle(
+                                            fontFamily: 'Monserrat',
+                                            fontSize: fontSize,
+                                            fontWeight: FontWeight.w400,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ],
-                ),
-              ),
               SizedBox(
                 height: Styling.calculatePercentage(height, 30),
               ),
@@ -216,10 +214,30 @@ class _TranslatorPageState extends State<TranslatorPage>
               ),
             ],
           ),
+          AnimatedPositioned(
+            left: Styling.calculatePercentage(width, 13.9),
+            top: inputTextSelected
+                ? Styling.calculatePercentage(height, 3)
+                : Styling.calculatePercentage(height, 40),
+            duration: Duration(milliseconds: 200),
+            child: Center(
+              child: Container(
+                width: Styling.calculatePercentage(width, 70.19),
+                height: 43.33,
+                child: InputSearch(
+                  hintText: "What object are you looking at?",
+                  onChanged: onTextChanged,
+                  onSubmitted: onSubmitted,
+                  onTap: onTap,
+                  showHowTo: true,
+                  width: Styling.calculatePercentage(width, 72.19),
+                  height: Styling.calculatePercentage(height, 7.63),
+                ),
+              ),
+            ),
+          ),
         ],
-      ),
-    );
-  }
+      );
 
   Widget buildSearchResult(
           String textToTranslate, double width, double height) =>
@@ -244,6 +262,7 @@ class _TranslatorPageState extends State<TranslatorPage>
                         hintText: "Search...",
                         onChanged: onTextChanged,
                         onSubmitted: onSubmitted,
+                        onTap: onTap,
                         showHowTo: false,
                         width: Styling.calculatePercentage(width, 72.19),
                         height: Styling.calculatePercentage(height, 5),

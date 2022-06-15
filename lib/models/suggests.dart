@@ -5,9 +5,7 @@ Suggests suggestFromJson(String str) => Suggests.fromJson(json.decode(str));
 String suggestToJson(Suggests data) => json.encode(data.toJson());
 
 class Suggests {
-  Suggests({
-    this.data,
-  });
+  Suggests({this.data});
 
   List<String>? data;
 
@@ -18,4 +16,8 @@ class Suggests {
   Map<String, dynamic> toJson() => {
         "data": List<dynamic>.from(data!.map((x) => x)),
       };
+
+  getData() async {
+    return this.data;
+  }
 }
