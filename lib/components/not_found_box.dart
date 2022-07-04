@@ -25,23 +25,26 @@ class _NotFoundBoxState extends State<NotFoundBox> {
       child: Column(
         children: <Widget>[
           SizedBox(
-            height: 25,
+            height: 35,
           ),
           Text(
-            "Sorry We Couldn’t Find Your Symbol\n" + widget.searchText,
+            "Sorry, we could not find a result\n",
             style: Styling.getHead1Style(_wh),
             textAlign: TextAlign.left,
           ),
           SizedBox(
-            height: 35,
+            height: 45,
           ),
           Text(
-            "Please try with more context. E.g.:\n\n\u2022 Shape (round, globe, sphere)\n" +
-                "\u2022 Object (staff, staff with flower, curled stick, flower)\n" +
-                "\u2022 Sex (male, female)\n" +
-                "\u2022 Colors (black, white)\n" +
-                "\u2022 Location (church, palace)\n" +
-                "\u2022 Clothes (dress, habit, armor, helmet, shield)",
+            "Please type another object you see on this artwork and click a suggestion from our innovative auto-suggest list to find the precise object, meaning and image examples.",
+            style: Styling.getBodyTextStyle(_wh),
+            textAlign: TextAlign.left,
+          ),
+          SizedBox(
+            height: 25,
+          ),
+          Text(
+            "If you don’t see the precise auto-suggest description just stay with your generic input (globe) and review all the results.",
             style: Styling.getBodyTextStyle(_wh),
             textAlign: TextAlign.left,
           ),

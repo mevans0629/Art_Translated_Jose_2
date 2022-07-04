@@ -22,6 +22,7 @@ class _AboutPageState extends State<AboutPage> {
     final wh = width + height;
 
     final double fontSize = Styling.getFontSize(14, height);
+    final image = AssetImage('assets/images/icon.png');
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -51,16 +52,28 @@ class _AboutPageState extends State<AboutPage> {
                             margin:
                                 EdgeInsets.only(top: wh / 290, bottom: wh / 30),
                             child: Center(
-                              child: Text(
-                                'About\nArtTranslated',
-                                style:
-                                    Styling.getTitleTextStyle(Colors.black, wh),
-                                textAlign: TextAlign.center,
+                              child: Column(
+                                children: <Widget>[
+                                  new Image.asset(
+                                    'assets/images/icon.png',
+                                    width: wh / 10,
+                                    height: wh / 10,
+                                  ),
+                                  Text(
+                                    '\nAbout\nArt Translated for Symbols',
+                                    style: Styling.getTitleTextStyle(
+                                        Colors.black, wh / 1.5),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
                               ),
                             ),
                           ),
+                          SizedBox(
+                            height: 10,
+                          ),
                           Text(
-                            'Welcome to the first mobile app to translate the specific meanings and intentions of symbols in art.\n',
+                            'Welcome to the first mobile app to translate the specific meanings and messages of symbols in art. Unique from most books and other references, this app’s unique database of over 100,000 fields of information is structured to provide the precise meaning you are seeking to the specific symbol in a painting, sculpture, or architecture. Because a symbol often has many possible  meanings our innovative database will provide results in an order of probability of the meaning.',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontFamily: 'Monserrat',
@@ -68,8 +81,23 @@ class _AboutPageState extends State<AboutPage> {
                                 fontWeight: FontWeight.w300,
                                 height: 1.2),
                           ),
+                          SizedBox(
+                            height: 10,
+                          ),
                           Text(
-                            'Unique from most books and other references, this app’s unique database of over 100,000 fields of information is structured to provide the meaning you are seeking to the specific symbol in a painting, sculpture, and architecture. With a symbol often having many possible  meanings, we provide results in order of probability.\n\nThe initial focus of this app is Western art. There are references to others but at this time they are not comprehensive (e.g.: Eastern culture).\n\nThe database is designed to apply to any popular symbol viewed.  The symbol could be an image you see or think of anywhere it might be encountered. For example: museum collections, parks, architecture, sculpture, art decor, movies, people’s home decor,tattoos and much more. A general guideline for the symbols is that they have a popular usage with some exceptions.\n\nPlease enjoy!',
+                            'The initial focus of this app is Western art. But there is some limited coverage of other areas of art such as the Oriental Art.',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'Monserrat',
+                                fontSize: fontSize,
+                                fontWeight: FontWeight.w300,
+                                height: 1.2),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Use this app to research symbols in art work, an image you see or think of anywhere it might be encountered. For example: in museum collections, in parks, flowers, in architecture, as sculpture, as art decor, in movies, as people’s home decor, as tattoos and more.\n\nPlease enjoy!',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontFamily: 'Monserrat',

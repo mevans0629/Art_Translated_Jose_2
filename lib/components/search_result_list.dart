@@ -271,6 +271,8 @@ class SearchResultListView extends StatelessWidget {
             return Expanded(
               flex: 1,
               child: ListView.builder(
+                padding: const EdgeInsets.only(
+                    bottom: kFloatingActionButtonMargin + 48),
                 scrollDirection: Axis.vertical,
                 controller: this.scrollController,
                 itemCount: recordsCount == 0 ? 1 : recordsCount,
